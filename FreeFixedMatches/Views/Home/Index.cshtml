@@ -1,0 +1,309 @@
+﻿@model FreeFixedMatches.ViewModel.ViewModelData
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row align-items-center my-5">
+    <div class="col-lg-7">
+        <img class="img-fluid rounded mb-4 mb-lg-0" src="http://placehold.it/900x400" alt="">
+    </div>
+    <!-- /.col-lg-8 -->
+    <div class="col-lg-5">
+        <h1 class="font-weight-light"><b>Free fixed matches 1x2</b></h1>
+        <p>
+            We know what you need and we are here to provide the best service - fixed matches for everyone.
+            We are cooperating with the most reliable sources available out there, that’s why we are the best.
+            The real connection makes the real betting profitable, not luck!
+            With our best fixed matches you are all set.
+        </p>
+    </div>
+    <!-- /.col-md-4 -->
+</div>
+<div class="card text-white bg-secondary my-3 text-center">
+    <div class="card-body">
+        <p class="text-white m-0">Monthly subscration</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <p>
+            Here you can buy best daily odds over 3.00. Matches are selected from our best sources and connections and here we
+            combined the safest daily fixed matches. Our team is here to help you to win money on easy way with giving a
+            Sure Football Fixed Matches from very reliable sources.
+            Join Now and start earning money every day with safest daily fixed matches.
+        </p>
+    </div>
+    <div class="col-md-6 mb-5">
+        <div class="col-md-12 mb-2">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h2 class="card-title">10 DAYS Offer</h2>
+                    <p class="card-text">
+                        Our entry daily fixed matches offer. 
+                        It combiend with 2 fixed matches with mininum of 3 odd per match.
+                        Subscription time is 10 days.
+                    </p>
+                    <h5 class="card-text">
+                        Price: 50 euros.
+                    </h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 mb-2">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h2 class="card-title">20 DAYS Offer</h2>
+                    <p class="card-text">
+                        Our most popular daily fixed matches. 
+                        It combiend with 2 fixed matches with mininum of 3 odd per match.
+                        Subscription time is 20 days.
+                    </p>
+                    <h5 class="card-text">
+                        Price: 80 euros.
+                    </h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 mb-2">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h2 class="card-title">30 DAYS Offer</h2>
+                    <p class="card-text">
+                        Our ultra offer for daily fixed matches. 
+                        It combiend minimum 2 daily sure fixed matches with mininum of 3 odd per match.
+                    </p>
+                    <h5 class="card-text">
+                        Price: 130 euros
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-5">
+        <div class="table-responsive">
+            <table class="table table-bordered table-sm" style="overflow-y:auto;">
+                <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Тotal Odd</th>
+                        <th scope="col">Match</th>
+                        <th scope="col">Tip</th>
+                        <th scope="col">Odd</th>
+                        <th scope="col">Result</th>
+                        <th scope="col">Win/Lose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var tip in Model.MonthlySubscrations)
+                    {
+                        <tr>
+                            <td>@tip.Date</td>
+                            <td>@tip.TotalOdd</td>
+                            <td>@tip.Match</td>
+                            <td>@tip.Tip</td>
+                            <td>@tip.Odd</td>
+                            <td>@tip.Result</td>
+                            <td>@tip.WinLose</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="card text-white bg-secondary my-3 text-center">
+    <div class="card-body">
+        <p class="text-white m-0">ADS and banners</p>
+    </div>
+</div>
+<!-- ADS -->
+<div class="row">
+    <div class="col-6 col-md-2">
+        <img src="http://placehold.it/900x400" class="img-fluid mb-2" />
+    </div>
+    <div class="col-6 col-md-2">
+        <img src="http://placehold.it/900x400" class="img-fluid mb-2" />
+    </div>
+    <div class="col-6 col-md-2">
+        <img src="http://placehold.it/900x400" class="img-fluid mb-2" />
+    </div>
+    <div class="col-6 col-md-2">
+        <img src="http://placehold.it/900x400" class="img-fluid mb-2" />
+    </div>
+    <div class="col-6 col-md-2">
+        <img src="http://placehold.it/900x400" class="img-fluid mb-2" />
+    </div>
+</div>
+<!-- ADS END -->
+<div class="card text-white bg-secondary my-3 text-center">
+    <div class="card-body">
+        <p class="text-white m-0">Vip Ticket</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <p>
+            This is the most saled offer in our company.
+            Matches are from the best and the most most reliable sourses.
+            Four fixed matches with minimum odd of 250.
+            You can buy three vip ticket at once with a special price of 110 EUROS.
+        </p>
+    </div>
+    <div class="col-md-6 mb-5">
+        <!-- Sliki tiketi -->
+        <p>Last week vip ticket</p>
+        @foreach (var ticket in Model.VipTickets)
+        {
+            <div class="card">
+                <img class="card-img-top" src="@ticket.ImagePath" alt="@ticket.Title">
+                <div class="card-body">
+                    <p class="card-text">@ticket.ImagePath</p>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-md-6 mb-2">
+        <p>Vip ticket offers</p>
+        <div class="col-md-12 mb-5">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h2 class="card-title">One Vip Ticket</h2>
+                    <p class="card-text">
+                        Price of one vip ticket with 4 fixed matches is 50 euros.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 mb-2">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h2 class="card-title">Packet Three Vip Ticket</h2>
+                    <p class="card-text">
+                        Price of Packet of tickets is 110 euros.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card text-white bg-secondary my-3 text-center">
+    <div class="card-body">
+        <p class="text-white m-0">Payment methods</p>
+    </div>
+</div>
+<!-- Payment -->
+<div class="row">
+    <div class="col-6 col-md-3">
+        <img src="~/Content/PaymentMethods/wUnion.png" class="img-fluid mb-2" />
+    </div>
+    <div class="col-6 col-md-3">
+        <img src="~/Content/PaymentMethods/SkrillNettelerLogo.jpg" class="img-fluid mb-2" />
+    </div>
+    <div class="col-6 col-md-3">
+        <img src="~/Content/PaymentMethods/riaLogo.jpg" class="img-fluid mb-2" />
+    </div>
+    <div class="col-6 col-md-3">
+        <img src="~/Content/PaymentMethods/Bitcoin.png" class="img-fluid mb-2" />
+    </div>
+</div>
+
+<!-- ADS -->
+<div class="row">
+    <div class="col-6 col-md-2">
+        <img src="http://placehold.it/900x400" class="img-fluid mb-2" />
+    </div>
+    <div class="col-6 col-md-2">
+        <img src="http://placehold.it/900x400" class="img-fluid mb-2" />
+    </div>
+    <div class="col-6 col-md-2">
+        <img src="http://placehold.it/900x400" class="img-fluid mb-2" />
+    </div>
+    <div class="col-6 col-md-2">
+        <img src="http://placehold.it/900x400" class="img-fluid mb-2" />
+    </div>
+    <div class="col-6 col-md-2">
+        <img src="http://placehold.it/900x400" class="img-fluid mb-2" />
+    </div>
+    <div class="col-6 col-md-2">
+        <img src="http://placehold.it/900x400" class="img-fluid mb-2" />
+    </div>
+</div>
+<div class="card text-white bg-secondary my-3 text-center">
+    <div class="card-body">
+        <p class="text-white m-0">Free Tips</p>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-6 mb-5">
+        <div class="table-responsive">
+            <table class="table table-bordered table-sm" style="overflow-y:auto;">
+                <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Match</th>
+                        <th scope="col">Tip</th>
+                        <th scope="col">Odd</th>
+                        <th scope="col">Result</th>
+                        <th scope="col">Win/Lose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    @foreach (var freeTip in Model.FreeTips)
+                    {
+                        <tr>
+                            <td>@freeTip.Date</td>
+                            <td>@freeTip.Match</td>
+                            <td>@freeTip.Tip</td>
+                            <td>@freeTip.Odd</td>
+                            <td>@freeTip.Result</td>
+                            <td>@freeTip.WinLose</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-6 mb-5">
+        <div class="col-md-12 mb-2">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h2 class="card-title">Card One</h2>
+                    <p class="card-text">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni
+                        quas
+                        ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 mb-2">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h2 class="card-title">Card One</h2>
+                    <p class="card-text">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni
+                        quas
+                        ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 mb-2">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h2 class="card-title">Card One</h2>
+                    <p class="card-text">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni
+                        quas
+                        ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

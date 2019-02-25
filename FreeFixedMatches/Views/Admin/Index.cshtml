@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    if(Session["Username"] == null)
+    {
+        Response.Redirect("~/Login/Index");
+    }
+}
+
+<h2>Admin Index</h2>
+
+<div class="list-group">
+        @Html.ActionLink("Add Free Tip","AddFreeTip","Admin",null,new{@class = "list-group-item list-group-item-action" })
+        @Html.ActionLink("Add Monthly","AddMonthly", "Admin", null, new {@class = "list-group-item list-group-item-action" })
+        @Html.ActionLink("Add Vip Ticket","AddVipTicket", "Admin", null, new {@class = "list-group-item list-group-item-action" })
+</div>
+
+<button type="button" class="btn btn-danger btn-sm" onclick="location.href='@Url.Action("LogOut","Admin")'">Log Out</button>
+

@@ -1,0 +1,77 @@
+﻿@model FreeFixedMatches.ViewModel.FreeTipViewModel
+@{
+    ViewBag.Title = "AddFreeTip";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AddFreeTip</h2>
+<div class="row">
+    <div class="col-md-4">
+        @using (Html.BeginForm("AddToFreeTip", "Admin"))
+        {
+            <div class="form-group">
+                @Html.LabelFor(f => f.freeTip.Date)
+                @Html.TextBoxFor(f => f.freeTip.Date, new { @id = "datepicker", @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(f => f.freeTip.Match):
+                @Html.TextBoxFor(f => f.freeTip.Match, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(f => f.freeTip.Odd):
+                @Html.TextBoxFor(f => f.freeTip.Odd, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(f => f.freeTip.Result):
+                @Html.TextBoxFor(f => f.freeTip.Result, new { @class = "form-control", @id = "js-result", @name = "js-name-result" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(f => f.freeTip.Tip):
+                @Html.TextBoxFor(f => f.freeTip.Tip, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(f => f.freeTip.WinLose):
+                @Html.TextBoxFor(f => f.freeTip.WinLose, new { @class = "form-control", @Value = "WIN" })
+            </div>
+            <button type="submit" class="btn btn-sm btn-primary">Save</button>
+        }
+    </div>
+    <div class="col-md-8">
+        <div class="table-responsive">
+            <table class="table table-bordered table-sm" style="overflow-y:auto;">
+                <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Match</th>
+                        <th scope="col">Tip</th>
+                        <th scope="col">Result</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var tip in Model.freeTips)
+                    {
+                        <tr>
+                            <td>@tip.Date</td>
+                            <td>@tip.Match</td>
+                            <td>@tip.Tip</td>
+                            <td>@tip.Result</td>
+                            <td>@Html.ActionLink("Delete", "DeleteMatch", "Admin",new {id =tip.Id},null)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    <script>
+        $(document).ready(function() {
+            $("#datepicker").datepicker({ dateFormat: 'dd/mm/yy'});
+        });
+
+    </script>
+
+}

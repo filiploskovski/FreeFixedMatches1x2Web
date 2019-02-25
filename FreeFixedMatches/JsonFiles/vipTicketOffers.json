@@ -1,0 +1,12 @@
+[
+  {
+    "Name": "OfferName",
+    "Text": "TextArea",
+    "Price": 40
+  },
+  {
+    "Name": "OfferName2",
+    "Text": "TextArea2",
+    "Price": 50
+  }
+]

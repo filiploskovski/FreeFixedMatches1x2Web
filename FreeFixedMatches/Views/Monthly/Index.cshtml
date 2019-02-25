@@ -1,0 +1,45 @@
+﻿@using Microsoft.Ajax.Utilities
+@model FreeFixedMatches.ViewModel.ViewModelData
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Monthly Tips</h2>
+
+
+@Html.Partial("_FirstPanel")
+@Html.Partial("_Offers")
+
+
+<div class="table-responsive">
+    <table class="table table-bordered table-sm" style="overflow-y:auto;">
+        <thead>
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">TotalOdd</th>
+                <th scope="col">Match</th>
+                <th scope="col">Tip</th>
+                <th scope="col">Odd</th>
+                <th scope="col">Result</th>
+                <th scope="col">Win/Lose</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tip in Model.MonthlySubscrations)
+            {
+                    <tr>
+                        <td>@tip.Date</td>
+                        <td>@tip.TotalOdd</td>
+                        <td>@tip.Match</td>
+                        <td>@tip.Tip</td>
+                        <td>@tip.Odd</td>
+                        <td>@tip.Result</td>
+                        <td>@tip.WinLose</td>
+                    </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
