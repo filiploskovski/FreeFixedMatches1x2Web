@@ -160,6 +160,8 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\FreeFixedDb.cs" />
     <Compile Include="Models\FreeTip.cs" />
+    <Compile Include="Models\ListJsonMonthly.cs" />
+    <Compile Include="Models\MonthlyOffersJson.cs" />
     <Compile Include="Models\MonthlySubscration.cs" />
     <Compile Include="Models\TestTable.cs" />
     <Compile Include="Models\User.cs" />
@@ -169,6 +171,7 @@
     <Compile Include="ViewModel\FreeTipViewModel.cs" />
     <Compile Include="ViewModel\MonthlyAdminViewModel.cs" />
     <Compile Include="ViewModel\ViewModelData.cs" />
+    <Compile Include="ViewModel\VipAdminViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -244,6 +247,7 @@
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
     <Content Include="JsonFiles\vipTicketOffers.json" />
+    <Content Include="JsonFiles\MonthlyOffers.json" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -294,11 +298,10 @@
     <Content Include="Views\FreeTips\Index.cshtml" />
     <Content Include="Views\Monthly\Index.cshtml" />
     <Content Include="Views\Monthly\_FirstPanel.cshtml" />
-    <Content Include="Views\Monthly\_Offers.cshtml" />
     <Content Include="Views\Admin\AddFreeTip.cshtml" />
     <Content Include="Views\Admin\AddMonthly.cshtml" />
     <Content Include="Views\Admin\AddVipTicket.cshtml" />
-    <Content Include="Views\Admin\_FreeTipTable.cshtml" />
+    <Content Include="Views\Admin\ChangeMonthlyOffers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

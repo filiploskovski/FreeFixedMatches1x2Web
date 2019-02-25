@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using FreeFixedMatches.Models;
 using FreeFixedMatches.ViewModel;
+using Newtonsoft.Json;
 
 namespace FreeFixedMatches.Controllers
 {
@@ -132,10 +133,25 @@ namespace FreeFixedMatches.Controllers
             return View("AddVipTicket");
         }
 
+        public ViewResult ChangeMonthlyOffers()
+        {
+            return View();
+        }
+
+        public ActionResult AddToJson(MonthlyOffersJson monthlyJson)
+        {
+            
+            return View("ChangeMonthlyOffers");
+        }
+
+
+
         public ActionResult LogOut()
         {
             Session.Abandon();
             return RedirectToAction("Index", "Home");
         }
+
+        
     }
 }

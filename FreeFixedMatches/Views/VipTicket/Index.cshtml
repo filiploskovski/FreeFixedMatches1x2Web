@@ -30,28 +30,6 @@
     </div>
 </div>
 <div class="row js-Offers">
-    <div class="col-md-6 mb-5">
-        <div class="card h-100">
-            <div class="card-body">
-                <h2 class="card-title">Card One</h2>
-                <p class="card-text">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas
-                    ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.
-                </p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6 mb-5">
-        <div class="card h-100">
-            <div class="card-body">
-                <h2 class="card-title">Card One</h2>
-                <p class="card-text">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas
-                    ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.
-                </p>
-            </div>
-        </div>
-    </div>
 </div>
 
 
@@ -82,5 +60,24 @@
     }
 </div>
 
+@section scripts {
+    <script>
+        var list = [];
+        $(document).ready(function() {
+            $.getJSON("/JsonFiles/vipTicketOffers.json", function(result){
+                $.each(result, function(key, value){
+                    list.push(value);
+                    $(".js-Offers").append(
+                        '<div class="col-md-6 mb-5"><div class="card h-100"><div class="card-body">'+
+                        '<h2 class="card-title">' + value.Name + '</h2>'+
+                        '<p class="card-text">' + value.Text +
+                        '</p></div></div></div>'
+                        );
+                });
+            });
+        });
 
+    </script>
+
+}
 

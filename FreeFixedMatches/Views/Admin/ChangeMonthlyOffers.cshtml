@@ -1,0 +1,57 @@
+﻿@model FreeFixedMatches.Models.MonthlyOffersJson
+@{
+    ViewBag.Title = "ChangeMonthlyOffers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ChangeMonthlyOffers</h2>
+<div class="row">
+    <div class="col-md-4">
+        <button type="button" class="btn btn-primary btn-lg" onclick="showNewOfferForm()">Add new Offer</button>
+        <button type="button" class="btn btn-secondary btn-lg">Change offer</button>
+    </div>
+    <div class="col-md-8" id="addNewOffer">
+        <p>Add new Offer</p>
+        
+        @using (Html.BeginForm("AddToJson", "Admin"))
+        {
+            <div class="form-group">
+                @Html.TextAreaFor(m => m.NameOffer, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.TextBoxFor(m => m.TextOffer, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.TextBoxFor(m => m.PriceOffer , new{@class="form-control"})
+            </div>
+            <button type="submit">Save</button>
+
+        }
+
+
+    </div>
+</div>
+
+
+@section scripts {
+    <script>
+        $(document).ready(function() {
+            $.getJSON("/JsonFiles/MonthlyOffers.json",
+                function(data) {
+
+
+                });
+        });
+
+        function showNewOfferForm() {
+            let x = document.getElementById("addNewOffer");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+
+    </script>
+
+}

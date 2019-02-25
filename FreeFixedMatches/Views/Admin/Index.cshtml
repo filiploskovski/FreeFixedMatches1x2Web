@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
@@ -10,12 +9,23 @@
 }
 
 <h2>Admin Index</h2>
-
-<div class="list-group">
-        @Html.ActionLink("Add Free Tip","AddFreeTip","Admin",null,new{@class = "list-group-item list-group-item-action" })
-        @Html.ActionLink("Add Monthly","AddMonthly", "Admin", null, new {@class = "list-group-item list-group-item-action" })
-        @Html.ActionLink("Add Vip Ticket","AddVipTicket", "Admin", null, new {@class = "list-group-item list-group-item-action" })
+<div class="row">
+    <div class="col-md-6">
+        <ul class="list-group">
+            @Html.ActionLink("Add Free Tip", "AddFreeTip", "Admin", null, new { @class = "list-group-item list-group-item-action" })
+            @Html.ActionLink("Add Monthly", "AddMonthly", "Admin", null, new { @class = "list-group-item list-group-item-action" })
+            @Html.ActionLink("Add Vip Ticket", "AddVipTicket", "Admin", null, new { @class = "list-group-item list-group-item-action" })
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <ul class="list-group">
+            @Html.ActionLink("Add or change monthly offers", "ChangeMonthlyOffers", "Admin", null, new { @class = "list-group-item list-group-item-action" })
+            @Html.ActionLink("Add new free tips", "ChangeMonthlyOffers", "Admin", null, new { @class = "list-group-item list-group-item-action" })
+            @Html.ActionLink("Change Vip Tickets", "ChangeMonthlyOffers", "Admin", null, new { @class = "list-group-item list-group-item-action" })
+        </ul>
+    </div>
 </div>
 
-<button type="button" class="btn btn-danger btn-sm" onclick="location.href='@Url.Action("LogOut","Admin")'">Log Out</button>
+
+<button type="button" class="btn btn-danger btn-sm" onclick="location.href=@Url.Action("LogOut","Admin")">Log Out</button>
 
