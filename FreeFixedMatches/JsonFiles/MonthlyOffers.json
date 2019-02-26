@@ -1,8 +1,1 @@
-[
-  {
-    "NameOffer": "OfferName",
-    "TextOffer": "TextArea",
-    "PriceOffer": 40
-  }
-]
-
+[{"Id":0,"NameOffer":"Middle Offer","TextOffer":"New SEO SEO SEO","PriceOffer":0},{"Id":0,"NameOffer":"Middle Offer","TextOffer":"New SEO SEO SEO","PriceOffer":0},{"Id":2,"NameOffer":"Latest Offer","TextOffer":"Seo Seo Seo Seo","PriceOffer":15020}]

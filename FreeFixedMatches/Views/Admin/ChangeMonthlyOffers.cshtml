@@ -6,52 +6,166 @@
 
 <h2>ChangeMonthlyOffers</h2>
 <div class="row">
-    <div class="col-md-4">
-        <button type="button" class="btn btn-primary btn-lg" onclick="showNewOfferForm()">Add new Offer</button>
-        <button type="button" class="btn btn-secondary btn-lg">Change offer</button>
-    </div>
-    <div class="col-md-8" id="addNewOffer">
-        <p>Add new Offer</p>
+    <div class="col-md-2">
+        <div class="btn-group-vertical">
+            <button type="button" class="btn btn-primary btn-sm" onclick="stylingNewOffer()">Add new Offer</button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="stylingUpdateOffer()">Change offer</button>
+            <button type="button" class="btn btn-danger btn-sm" onclick="stylingDeleteOffer()">Delete offer</button>
+
+        </div>
         
-        @using (Html.BeginForm("AddToJson", "Admin"))
-        {
+    </div>
+    <div class="col-md-5">
+        <div id="js-Offers-New">
+            <p>Add new Offer</p>
+            @using (Html.BeginForm("AddToJson", "Admin"))
+            {
             <div class="form-group">
-                @Html.TextAreaFor(m => m.NameOffer, new { @class = "form-control" })
+                @Html.LabelFor(m => m.Id)
+                @Html.TextBoxFor(m => m.Id, new { @class = "form-control" })
             </div>
-            <div class="form-group">
-                @Html.TextBoxFor(m => m.TextOffer, new { @class = "form-control" })
-            </div>
-            <div class="form-group">
-                @Html.TextBoxFor(m => m.PriceOffer , new{@class="form-control"})
-            </div>
-            <button type="submit">Save</button>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.NameOffer)
+                    @Html.TextBoxFor(m => m.NameOffer, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.TextOffer)
+                    @Html.TextAreaFor(m => m.TextOffer, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.PriceOffer)
+                    @Html.TextBoxFor(m => m.PriceOffer, new { @class = "form-control" })
+                </div>
+                <button type="submit" class="btn btn-primary">Add</button>
 
-        }
+            }
+        </div>
+        <div id="js-Offers-Update" style="display: none">
+            <p>Update Offer</p>
+            @using (Html.BeginForm("UpdateMonthlyOffer", "Admin"))
+            {
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Id)
+                    @Html.TextBoxFor(m => m.Id, new { @class = "form-control",@id= "js-id", @readonly = "readonly" })
+                </div>
 
+                <div class="form-group">
+                    @Html.LabelFor(m => m.NameOffer)
+                    @Html.TextBoxFor(m => m.NameOffer, new { @class = "form-control", @id = "js-name" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.TextOffer)
+                    @Html.TextAreaFor(m => m.TextOffer, new { @class = "form-control", @id = "js-text" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.PriceOffer)
+                    @Html.TextBoxFor(m => m.PriceOffer, new { @class = "form-control", @id = "js-price" })
+                </div>
+                <button type="submit" class="btn btn-danger">Update</button>
+            }
+        </div>
+        <div id="js-Offers-Delete" style="display: none">
+            <p>Delete Offer</p>
+            @using (Html.BeginForm("DeleteMonthlyOffer", "Admin"))
+            {
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Id)
+                    @Html.TextBoxFor(m => m.Id, new { @class = "form-control",@id= "js-id", @readonly = "readonly" })
+                </div>
 
+                <div class="form-group">
+                    @Html.LabelFor(m => m.NameOffer)
+                    @Html.TextBoxFor(m => m.NameOffer, new { @class = "form-control", @id = "js-name",@readonly = "readonly" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.TextOffer)
+                    @Html.TextAreaFor(m => m.TextOffer, new { @class = "form-control", @id = "js-text", @readonly = "readonly" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.PriceOffer)
+                    @Html.TextBoxFor(m => m.PriceOffer, new { @class = "form-control", @id = "js-price", @readonly = "readonly" })
+                </div>
+                <button type="submit" class="btn btn-danger">Delete Offer</button>
+            }
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="table-responsive">
+            <table class="table table-bordered table-sm">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Text</th>
+                    <th>Price</th>
+                    <th>Update</th>
+                </tr>
+                </thead>
+                <tbody class="js-table-body">
+
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
 
 @section scripts {
     <script>
-        $(document).ready(function() {
-            $.getJSON("/JsonFiles/MonthlyOffers.json",
-                function(data) {
+        
+            $(document).ready(function() {
+                $(".js-table-body").empty();
+                var list = [];
+                $.getJSON("/JsonFiles/MonthlyOffers.json",
+                    function(data) {
+                        $.each(data,
+                            function(key, value) {
+                                list.push(value);
+                                console.log("Key -> " + key + " Value -> " + value.NameOffer);
+                                $(".js-table-body").append(
+                                    '<tr><td>' +
+                                    value.Id +
+                                    '</td><td>' +
+                                    value.NameOffer +
+                                    '</td><td>' +
+                                    value.TextOffer +
+                                    '</td><td>' +
+                                    value.PriceOffer +
+                                    '</td><td><button class="btn btn-link get-row" onclick="ChangeOffer()">Update</button></td>');
+                            });
+                    });
+            });
+        
 
-
-                });
-        });
-
-        function showNewOfferForm() {
-            let x = document.getElementById("addNewOffer");
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            } else {
-                x.style.display = "none";
-            }
+        function stylingNewOffer() {
+            document.getElementById("js-Offers-New").style.display = 'block';
+            document.getElementById("js-Offers-Update").style.display = 'none';
+            document.getElementById("js-Offers-Delete").style.display = 'none';
+        }
+        function stylingDeleteOffer() {
+                document.getElementById("js-Offers-New").style.display = 'none';
+            document.getElementById("js-Offers-Delete").style.display = 'block';
+                document.getElementById("js-Offers-Update").style.display = 'none';
         }
 
+        function stylingUpdateOffer() {
+            document.getElementById("js-Offers-New").style.display = 'none';
+            document.getElementById("js-Offers-Delete").style.display = 'none';
+            document.getElementById("js-Offers-Update").style.display = 'block';
+        }
+
+        function ChangeOffer() {
+            $(document).ready(function() {
+                $(".get-row").click(function() {
+                    var $row = $(this).closest("tr"); // Find the row
+                    var tds = $row.find("td");
+                    $('#js-id').val(tds[0].innerText);
+                    $('#js-name').val(tds[1].innerText);
+                    $('#js-text').val(tds[2].innerText);
+                    $('#js-price').val(tds[3].innerText);
+                });
+            });
+        }
     </script>
 
 }

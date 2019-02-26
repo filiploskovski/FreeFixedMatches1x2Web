@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FreeFixedMatches.Models;
@@ -27,6 +29,13 @@ namespace FreeFixedMatches.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        private void ChangeValueToList(MonthlyOffersJson offersJson,string name,string text,int price)
+        {
+            offersJson.NameOffer = name;
+            offersJson.TextOffer = text;
+            offersJson.PriceOffer = price;
         }
 
         public ViewResult AddFreeTip()
@@ -137,21 +146,56 @@ namespace FreeFixedMatches.Controllers
         {
             return View();
         }
-
         public ActionResult AddToJson(MonthlyOffersJson monthlyJson)
         {
-            
+            var fileContents = System.IO.File.ReadAllText(Server.MapPath(@"~/JsonFiles/MonthlyOffers.json"));
+            var result = JsonConvert.DeserializeObject<List<MonthlyOffersJson>>(fileContents);
+            result.Add(new MonthlyOffersJson()
+            {
+                Id=monthlyJson.Id,
+                NameOffer = monthlyJson.NameOffer,
+                PriceOffer = monthlyJson.PriceOffer,
+                TextOffer = monthlyJson.TextOffer
+            });
+            var resultForSave = JsonConvert.SerializeObject(result);
+            System.IO.File.WriteAllText(Server.MapPath(@"~/JsonFiles/MonthlyOffers.json"),resultForSave);
             return View("ChangeMonthlyOffers");
         }
 
+        public ActionResult UpdateMonthlyOffer(MonthlyOffersJson monthlyJson)
+        {
+            var fileContents = System.IO.File.ReadAllText(Server.MapPath(@"~/JsonFiles/MonthlyOffers.json"));
+            var result = JsonConvert.DeserializeObject<List<MonthlyOffersJson>>(fileContents);
+            foreach (var rToChange in result)
+            {
+                if (rToChange.Id == monthlyJson.Id)
+                {
+                    ChangeValueToList(rToChange, monthlyJson.NameOffer, monthlyJson.TextOffer, monthlyJson.Id);
+                } 
+            }
+            var resultForSave = JsonConvert.SerializeObject(result);
+            System.IO.File.WriteAllText(Server.MapPath(@"~/JsonFiles/MonthlyOffers.json"), resultForSave);
+            return View("ChangeMonthlyOffers");
+        }
 
-
+        public ActionResult DeleteMonthlyOffer(MonthlyOffersJson monthlyJson)
+        {
+            var fileContents = System.IO.File.ReadAllText(Server.MapPath(@"~/JsonFiles/MonthlyOffers.json"));
+            var result = JsonConvert.DeserializeObject<List<MonthlyOffersJson>>(fileContents);
+            var objectToDelete = result.SingleOrDefault(x => x.Id == monthlyJson.Id);
+            if (objectToDelete != null)
+                result.Remove(objectToDelete);
+            var resultForSave = JsonConvert.SerializeObject(result);
+            System.IO.File.WriteAllText(Server.MapPath(@"~/JsonFiles/MonthlyOffers.json"), resultForSave);
+            return View("ChangeMonthlyOffers");
+        }
         public ActionResult LogOut()
         {
             Session.Abandon();
             return RedirectToAction("Index", "Home");
         }
 
-        
+
+       
     }
 }

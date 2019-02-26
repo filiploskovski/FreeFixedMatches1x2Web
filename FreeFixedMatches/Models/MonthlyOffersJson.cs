@@ -7,6 +7,7 @@ namespace FreeFixedMatches.Models
 {
     public class MonthlyOffersJson
     {
+        public int Id { get; set; }
         public string NameOffer { get; set; }
         public string TextOffer { get; set; }
         public int PriceOffer { get; set; }
