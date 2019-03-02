@@ -1,0 +1,26 @@
+[
+  {
+    "TopBottom": true,
+    "Id": 1,
+    "Alt": "fixed matches",
+    "ImgUrl": "http://placehold.it/900x400"
+  },
+  {
+    "TopBottom": false,
+    "Id": 1,
+    "Alt": "fixed matches",
+    "ImgUrl": "http://placehold.it/900x400"
+  },
+  {
+    "TopBottom": false,
+    "Id": 3,
+    "Alt": "aoskpdaspkd",
+    "ImgUrl": "http://placehold.it/900x400"
+  },
+  {
+    "TopBottom": true,
+    "Id": 4,
+    "Alt": "aoskpdaspkd",
+    "ImgUrl": "http://placehold.it/900x400"
+  }
+]

@@ -5,8 +5,9 @@ using System.Web;
 
 namespace FreeFixedMatches.Models
 {
-    public class ListJsonMonthly
+    public class NewFreeTips
     {
-        public List<MonthlyOffersJson> MonthlyOffersJsons { get; set; }
+        public string freeTip { get; set; }
+        public string Date { get; set; }
     }
 }

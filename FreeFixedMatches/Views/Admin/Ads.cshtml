@@ -1,0 +1,93 @@
+﻿@model FreeFixedMatches.ViewModel.AdsView
+@{
+    ViewBag.Title = "Ads";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Ads</h2>
+
+@using (Html.BeginForm("AdsAdd", "Admin"))
+{
+<div class="form-group">
+    @Html.RadioButtonFor(f => f.TopAds.TopBottom, true) Add to top Adds
+    @Html.RadioButtonFor(f => f.TopAds.TopBottom, false)  Add to bottom Adds
+</div>
+    <div class="form-group">
+        @Html.LabelFor(f => f.TopAds.Id)
+        @Html.TextBoxFor(f => f.TopAds.Id, new { @id = "datepicker", @class = "form-control" })
+    </div>
+    <div class="form-group">
+              @Html.LabelFor(f => f.TopAds.Alt)
+              @Html.TextBoxFor(f => f.TopAds.Alt, new { @id = "datepicker", @class = "form-control" })
+          </div>
+    <div class="form-group">
+        @Html.LabelFor(f => f.TopAds.ImgUrl)
+        @Html.TextBoxFor(f => f.TopAds.ImgUrl, new { @id = "datepicker", @class = "form-control" })
+    </div>
+
+    <button type="submit">Save</button>
+}
+
+
+<div class="table-responsive">
+    <table class="table table-bordered table-sm" style="overflow-y:auto;">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Alt</th>
+            <th scope="col">Image</th>
+            <th scope="col">Delete</th>
+        </tr>
+        </thead>
+        <tbody class="js-table-top">
+        </tbody>
+    </table>
+    <table class="table table-bordered table-sm" style="overflow-y:auto;">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Alt</th>
+            <th scope="col">Image</th>
+            <th scope="col">Delete</th>
+        </tr>
+        </thead>
+        <tbody class="js-table-down">
+        </tbody>
+    </table>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function() {
+            $(".js-table-top .js-table-down").empty();
+            $.getJSON("/JsonFiles/Ads.json",
+                function(data) {
+                    $.each(data,
+                        function (key, value) {
+                            if (value.TopBottom) {
+                                $(".js-table-top").append(
+                                    '<tr><td>' +
+                                    value.Id +
+                                    '</td><td>' +
+                                    value.Alt +
+                                    '</td><td>' +
+                                    value.ImgUrl +
+                                    '</td><td><button class="btn btn-link get-row" onclick="deleteoffer()">Delete</button></td>');
+                            } else {
+                                $(".js-table-down").append(
+                                    '<tr><td>' +
+                                    value.Id +
+                                    '</td><td>' +
+                                    value.Alt +
+                                    '</td><td>' +
+                                    value.ImgUrl +
+                                    '</td><td><button class="btn btn-link get-row" onclick="deleteoffer()">Delete</button></td>');
+                            }
+                        });
+                });
+        });
+    </script>
+}
+
+
+

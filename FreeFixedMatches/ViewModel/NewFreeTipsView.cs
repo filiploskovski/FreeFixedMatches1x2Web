@@ -6,9 +6,9 @@ using FreeFixedMatches.Models;
 
 namespace FreeFixedMatches.ViewModel
 {
-    public class VipAdminViewModel
+    public class NewFreeTipsView
     {
-        public VipTicket VipTicketView { get; set; }
-        public List<VipTicket> VipTickets { get; set; }
+        public NewFreeTips NewFreeTip { get; set; }
+        public List<NewFreeTips> NewFreeTips { get; set; }
     }
 }

@@ -10,5 +10,6 @@ namespace FreeFixedMatches.ViewModel
     {
         public FreeTip freeTip { get; set; }
         public List<FreeTip> freeTips { get; set; }
+
     }
 }

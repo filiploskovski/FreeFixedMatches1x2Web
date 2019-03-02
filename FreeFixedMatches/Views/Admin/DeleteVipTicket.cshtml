@@ -1,0 +1,34 @@
+﻿@model FreeFixedMatches.ViewModel.VipAdminViewModel
+@{
+    ViewBag.Title = "DeleteVipTicket";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DeleteVipTicket</h2>
+
+
+<div class="col-md-8">
+    <div class="table-responsive">
+        <table class="table table-bordered table-sm" style="overflow-y:auto;">
+            <thead>
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Title</th>
+                <th scope="col">Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var ticket in Model.VipTickets)
+            {
+                <tr>
+                    <td>@ticket.Date</td>
+                    <td>@ticket.Title</td>
+                    <td>@Html.ActionLink("Delete", "DeleteVip", "Admin",new {id = ticket.Id},null)</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

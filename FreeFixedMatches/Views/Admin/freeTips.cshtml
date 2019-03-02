@@ -1,0 +1,32 @@
+﻿@model FreeFixedMatches.Models.NewFreeTips
+
+@{
+    ViewBag.Title = "freeTips";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>freeTips</h2>
+
+
+@using (Html.BeginForm("addFreeTips", "Admin"))
+{
+    <div class="form-group">
+        @Html.LabelFor(f => f.Date)
+        @Html.TextBoxFor(f => f.Date, new { @id = "datepicker", @class = "form-control" })
+    </div>
+    
+    <div class="form-group">
+        @Html.LabelFor(f => f.freeTip)
+        @Html.TextAreaFor(f => f.freeTip,new{@class="form-control"})
+    </div>
+
+    <button type="submit">Postavi</button>
+}
+
+
+@section scripts {
+    <script>$(document).ready(function() {
+    $("#datepicker").datepicker({ dateFormat: 'dd/mm/yy'});
+});</script>
+}
+

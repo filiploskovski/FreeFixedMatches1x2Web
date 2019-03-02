@@ -5,10 +5,11 @@ using System.Web;
 
 namespace FreeFixedMatches.Models
 {
-    public class TestTable
+    public class Ads
     {
+        public bool TopBottom { get; set; }
         public int Id { get; set; }
-        public string TestUser { get; set; }
-        public string Utakmica { get; set; }
+        public string Alt { get; set; }
+        public string ImgUrl { get; set; }
     }
 }

@@ -9,9 +9,6 @@
     <div class="col-md-2">
         <div class="btn-group-vertical">
             <button type="button" class="btn btn-primary btn-sm" onclick="stylingNewOffer()">Add new Offer</button>
-            <button type="button" class="btn btn-secondary btn-sm" onclick="stylingUpdateOffer()">Change offer</button>
-            <button type="button" class="btn btn-danger btn-sm" onclick="stylingDeleteOffer()">Delete offer</button>
-
         </div>
         
     </div>
@@ -22,19 +19,19 @@
             {
             <div class="form-group">
                 @Html.LabelFor(m => m.Id)
-                @Html.TextBoxFor(m => m.Id, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.Id, new { @class = "form-control", @id="js-Id", @readonly = "readonly" })
             </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.NameOffer)
-                    @Html.TextBoxFor(m => m.NameOffer, new { @class = "form-control" })
+                    @Html.TextBoxFor(m => m.NameOffer, new { @class = "form-control",@id="js-reset-Name" })
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.TextOffer)
-                    @Html.TextAreaFor(m => m.TextOffer, new { @class = "form-control" })
+                    @Html.TextAreaFor(m => m.TextOffer, new { @class = "form-control", @id = "js-reset-TextOffer" })
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.PriceOffer)
-                    @Html.TextBoxFor(m => m.PriceOffer, new { @class = "form-control" })
+                    @Html.TextBoxFor(m => m.PriceOffer, new { @class = "form-control", @id = "js-reset-Price" })
                 </div>
                 <button type="submit" class="btn btn-primary">Add</button>
 
@@ -46,46 +43,22 @@
             {
                 <div class="form-group">
                     @Html.LabelFor(m => m.Id)
-                    @Html.TextBoxFor(m => m.Id, new { @class = "form-control",@id= "js-id", @readonly = "readonly" })
+                    @Html.TextBoxFor(m => m.Id, new { @class = "form-control",@id= "js-id-update", @readonly = "readonly" })
                 </div>
 
                 <div class="form-group">
                     @Html.LabelFor(m => m.NameOffer)
-                    @Html.TextBoxFor(m => m.NameOffer, new { @class = "form-control", @id = "js-name" })
+                    @Html.TextBoxFor(m => m.NameOffer, new { @class = "form-control", @id = "js-name-update" })
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.TextOffer)
-                    @Html.TextAreaFor(m => m.TextOffer, new { @class = "form-control", @id = "js-text" })
+                    @Html.TextAreaFor(m => m.TextOffer, new { @class = "form-control", @id = "js-text-update" })
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.PriceOffer)
-                    @Html.TextBoxFor(m => m.PriceOffer, new { @class = "form-control", @id = "js-price" })
+                    @Html.TextBoxFor(m => m.PriceOffer, new { @class = "form-control", @id = "js-price-update" })
                 </div>
                 <button type="submit" class="btn btn-danger">Update</button>
-            }
-        </div>
-        <div id="js-Offers-Delete" style="display: none">
-            <p>Delete Offer</p>
-            @using (Html.BeginForm("DeleteMonthlyOffer", "Admin"))
-            {
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Id)
-                    @Html.TextBoxFor(m => m.Id, new { @class = "form-control",@id= "js-id", @readonly = "readonly" })
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(m => m.NameOffer)
-                    @Html.TextBoxFor(m => m.NameOffer, new { @class = "form-control", @id = "js-name",@readonly = "readonly" })
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.TextOffer)
-                    @Html.TextAreaFor(m => m.TextOffer, new { @class = "form-control", @id = "js-text", @readonly = "readonly" })
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.PriceOffer)
-                    @Html.TextBoxFor(m => m.PriceOffer, new { @class = "form-control", @id = "js-price", @readonly = "readonly" })
-                </div>
-                <button type="submit" class="btn btn-danger">Delete Offer</button>
             }
         </div>
     </div>
@@ -99,6 +72,7 @@
                     <th>Text</th>
                     <th>Price</th>
                     <th>Update</th>
+                    <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody class="js-table-body">
@@ -112,40 +86,66 @@
 
 @section scripts {
     <script>
-        
+
+        $(document).ready(function() {
+            $(".js-table-body").empty();
+            $('#js-reset-Name').val(" ");
+            $('#js-reset-TextOffer').val(" ");
+            $('#js-reset-Price').val(" ");
+            $.getJSON("/JsonFiles/MonthlyOffers.json",
+                function(data) {
+                var list = [];
+                $.each(data,
+                        function(key, value) {
+                            console.log("Key -> " + key + " Value -> " + value.NameOffer);
+                            list.push(key);
+                            console.log(list.length);
+                            if (list.length == 0) {
+                                $('#js-Id').val(0);
+                            }
+                            $('#js-Id').val(list.length);
+                            $(".js-table-body").append(
+                                '<tr><td class="js-id-delete">' +
+                                key +
+                                '</td><td>' +
+                                value.NameOffer +
+                                '</td><td>' +
+                                value.TextOffer +
+                                '</td><td>' +
+                                value.PriceOffer +
+                                '</td><td><button type = "button" class="btn btn-link get-row" onclick="ChangeOffer()">Update</button>' +
+                                '</td><td><button type="button" class="btn btn-link delete" onclick="DeleteOffer()">Delete</button></td>');
+                        });
+                });
+        });
+
+
+        function stylingNewOffer() {
             $(document).ready(function() {
-                $(".js-table-body").empty();
                 var list = [];
                 $.getJSON("/JsonFiles/MonthlyOffers.json",
                     function(data) {
                         $.each(data,
                             function(key, value) {
-                                list.push(value);
-                                console.log("Key -> " + key + " Value -> " + value.NameOffer);
-                                $(".js-table-body").append(
-                                    '<tr><td>' +
-                                    value.Id +
-                                    '</td><td>' +
-                                    value.NameOffer +
-                                    '</td><td>' +
-                                    value.TextOffer +
-                                    '</td><td>' +
-                                    value.PriceOffer +
-                                    '</td><td><button class="btn btn-link get-row" onclick="ChangeOffer()">Update</button></td>');
+                                list.push(key);
+                                console.log(list.length);
+                                if (list.length == 0) {
+                                    $('#js-Id').val(0);
+                                }
+                                $('#js-Id').val(list.length);
+
                             });
                     });
-            });
-        
-
-        function stylingNewOffer() {
-            document.getElementById("js-Offers-New").style.display = 'block';
-            document.getElementById("js-Offers-Update").style.display = 'none';
-            document.getElementById("js-Offers-Delete").style.display = 'none';
-        }
-        function stylingDeleteOffer() {
-                document.getElementById("js-Offers-New").style.display = 'none';
-            document.getElementById("js-Offers-Delete").style.display = 'block';
+                document.getElementById("js-Offers-New").style.display = 'block';
                 document.getElementById("js-Offers-Update").style.display = 'none';
+                document.getElementById("js-Offers-Delete").style.display = 'none';
+            });
+        }
+
+        function stylingDeleteOffer() {
+            document.getElementById("js-Offers-New").style.display = 'none';
+            document.getElementById("js-Offers-Delete").style.display = 'block';
+            document.getElementById("js-Offers-Update").style.display = 'none';
         }
 
         function stylingUpdateOffer() {
@@ -155,14 +155,28 @@
         }
 
         function ChangeOffer() {
+            stylingUpdateOffer();
             $(document).ready(function() {
                 $(".get-row").click(function() {
                     var $row = $(this).closest("tr"); // Find the row
                     var tds = $row.find("td");
-                    $('#js-id').val(tds[0].innerText);
-                    $('#js-name').val(tds[1].innerText);
-                    $('#js-text').val(tds[2].innerText);
-                    $('#js-price').val(tds[3].innerText);
+                    $('#js-id-update').val(tds[0].innerText);
+                    $('#js-name-update').val(tds[1].innerText);
+                    $('#js-text-update').val(tds[2].innerText);
+                    $('#js-price-update').val(tds[3].innerText);
+                });
+            });
+        }
+
+        function DeleteOffer() {
+            console.log("vlaga vo delete");
+            $(document).ready(function() {
+                $(".delete").click(function() {
+                    var $row = $(this).closest("tr"); // Find the row
+                    var tds = $row.find("td");
+                    $.get('@Url.Action("DeleteMonthlyOffer", "Admin")', { id: tds[0].innerText }).done(function() {
+                        alert( "Data Loaded");
+                    });
                 });
             });
         }

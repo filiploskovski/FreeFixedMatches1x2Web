@@ -12,16 +12,20 @@
 <div class="row">
     <div class="col-md-6">
         <ul class="list-group">
-            @Html.ActionLink("Add Free Tip", "AddFreeTip", "Admin", null, new { @class = "list-group-item list-group-item-action" })
-            @Html.ActionLink("Add Monthly", "AddMonthly", "Admin", null, new { @class = "list-group-item list-group-item-action" })
-            @Html.ActionLink("Add Vip Ticket", "AddVipTicket", "Admin", null, new { @class = "list-group-item list-group-item-action" })
+            <li>Database</li>
+            @Html.ActionLink("Add Free Tip", "AddFreeTip", "Admin", null, new {@class = "list-group-item list-group-item-action"})
+            @Html.ActionLink("Add Monthly", "AddMonthly", "Admin", null, new {@class = "list-group-item list-group-item-action"})
+            @Html.ActionLink("Add Vip Ticket", "AddVipTicket", "Admin", null, new {@class = "list-group-item list-group-item-action"})
+            @Html.ActionLink("Delete Vip Ticket", "DeleteVipTicket", "Admin", null, new {@class = "list-group-item list-group-item-action"})
         </ul>
     </div>
     <div class="col-md-6">
         <ul class="list-group">
+            <li>Json</li>
             @Html.ActionLink("Add or change monthly offers", "ChangeMonthlyOffers", "Admin", null, new { @class = "list-group-item list-group-item-action" })
             @Html.ActionLink("Add new free tips", "ChangeMonthlyOffers", "Admin", null, new { @class = "list-group-item list-group-item-action" })
             @Html.ActionLink("Change Vip Tickets", "ChangeMonthlyOffers", "Admin", null, new { @class = "list-group-item list-group-item-action" })
+            @Html.ActionLink("Add Remove Ads", "Ads", "Admin", null, new { @class = "list-group-item list-group-item-action" })
         </ul>
     </div>
 </div>

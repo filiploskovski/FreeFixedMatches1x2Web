@@ -142,6 +142,31 @@ namespace FreeFixedMatches.Controllers
             return View("AddVipTicket");
         }
 
+        public ViewResult DeleteVipTicket()
+        {
+            var vipTickets = _context.VipTickets.ToList();
+            var vipTicketsList = new VipAdminViewModel
+            {
+                VipTickets = vipTickets
+            };
+            return View(vipTicketsList);
+        }
+
+        public ActionResult DeleteVip(int id)
+        {
+            var ticketToDelete = _context.VipTickets.FirstOrDefault(x => x.Id == id);
+            _context.VipTickets.Remove(ticketToDelete);
+            _context.SaveChanges();
+
+            var vipTickets = _context.VipTickets.ToList();
+            var vipTicketsList = new VipAdminViewModel
+            {
+                VipTickets = vipTickets
+            };
+
+            return View("DeleteVipTicket", vipTicketsList);
+        }
+
         public ViewResult ChangeMonthlyOffers()
         {
             return View();
@@ -150,7 +175,7 @@ namespace FreeFixedMatches.Controllers
         {
             var fileContents = System.IO.File.ReadAllText(Server.MapPath(@"~/JsonFiles/MonthlyOffers.json"));
             var result = JsonConvert.DeserializeObject<List<MonthlyOffersJson>>(fileContents);
-            result.Add(new MonthlyOffersJson()
+            result.Add(new MonthlyOffersJson
             {
                 Id=monthlyJson.Id,
                 NameOffer = monthlyJson.NameOffer,
@@ -170,7 +195,7 @@ namespace FreeFixedMatches.Controllers
             {
                 if (rToChange.Id == monthlyJson.Id)
                 {
-                    ChangeValueToList(rToChange, monthlyJson.NameOffer, monthlyJson.TextOffer, monthlyJson.Id);
+                    ChangeValueToList(rToChange, monthlyJson.NameOffer, monthlyJson.TextOffer, monthlyJson.PriceOffer);
                 } 
             }
             var resultForSave = JsonConvert.SerializeObject(result);
@@ -178,17 +203,98 @@ namespace FreeFixedMatches.Controllers
             return View("ChangeMonthlyOffers");
         }
 
-        public ActionResult DeleteMonthlyOffer(MonthlyOffersJson monthlyJson)
+        public ActionResult DeleteMonthlyOffer(string id)
         {
+            var IdInt = Int32.Parse(id);
             var fileContents = System.IO.File.ReadAllText(Server.MapPath(@"~/JsonFiles/MonthlyOffers.json"));
             var result = JsonConvert.DeserializeObject<List<MonthlyOffersJson>>(fileContents);
-            var objectToDelete = result.SingleOrDefault(x => x.Id == monthlyJson.Id);
+            var objectToDelete = result.SingleOrDefault(x => x.Id == IdInt);
+            var count = 0;
             if (objectToDelete != null)
                 result.Remove(objectToDelete);
+            foreach (var sortOffers in result)
+            {
+                sortOffers.Id = count;
+                count++;
+            }
             var resultForSave = JsonConvert.SerializeObject(result);
             System.IO.File.WriteAllText(Server.MapPath(@"~/JsonFiles/MonthlyOffers.json"), resultForSave);
             return View("ChangeMonthlyOffers");
         }
+
+        public ViewResult Ads()
+        {
+            return View();
+        }
+
+        public ActionResult AdsAdd(AdsView adsView)
+        {
+            var fileContents = System.IO.File.ReadAllText(Server.MapPath(@"~/JsonFiles/Ads.json"));
+            var result = JsonConvert.DeserializeObject<List<Ads>>(fileContents);
+            result.Add(new Ads
+            {
+                Id = adsView.TopAds.Id,
+                Alt = adsView.TopAds.Alt,
+                ImgUrl = adsView.TopAds.ImgUrl,
+                TopBottom = adsView.TopAds.TopBottom
+            });
+            var resultForSave = JsonConvert.SerializeObject(result);
+            System.IO.File.WriteAllText(Server.MapPath(@"~/JsonFiles/Ads.json"), resultForSave);
+            return View("Ads");
+        }
+
+        public ActionResult AdsDelete(AdsView adsView)
+        {
+            if (adsView.TopAds.TopBottom)
+            {
+                var fileContents = System.IO.File.ReadAllText(Server.MapPath(@"~/JsonFiles/AdsTop.json"));
+                var result = JsonConvert.DeserializeObject<List<Ads>>(fileContents);
+                var objectToDelete = result.SingleOrDefault(x => x.Id == adsView.TopAds.Id);
+                if (objectToDelete != null)
+                    result.Remove(objectToDelete);
+                var resultForSave = JsonConvert.SerializeObject(result);
+                System.IO.File.WriteAllText(Server.MapPath(@"~/JsonFiles/AdsTop.json"), resultForSave);
+
+            }
+            else
+            {
+                var fileContents = System.IO.File.ReadAllText(Server.MapPath(@"~/JsonFiles/AdsBottom.json"));
+                var result = JsonConvert.DeserializeObject<List<Ads>>(fileContents);
+                var objectToDelete = result.SingleOrDefault(x => x.Id == adsView.TopAds.Id);
+                if (objectToDelete != null)
+                    result.Remove(objectToDelete);
+                var resultForSave = JsonConvert.SerializeObject(result);
+                System.IO.File.WriteAllText(Server.MapPath(@"~/JsonFiles/AdsBottom.json"), resultForSave);
+            }
+
+            return View("Ads");
+
+        }
+
+        public ViewResult freeTips()
+        {
+            return View();
+        }
+
+        public ActionResult addFreeTips(NewFreeTips newTips)
+        {
+            var tipsUnChecked = newTips.freeTip.Split(Convert.ToChar(","));
+            var freeViewModel = new NewFreeTipsView();
+
+            foreach (var tip in tipsUnChecked)
+            {
+                freeViewModel.NewFreeTips.Add(new NewFreeTips
+                {
+                    Date = newTips.Date,
+                    freeTip = tip
+                });
+            }
+
+            var resultForSave = JsonConvert.SerializeObject(freeViewModel);
+            System.IO.File.WriteAllText(Server.MapPath(@"~/JsonFiles/FreeTips.json"), resultForSave);
+            return View("freeTips");
+        }
+
         public ActionResult LogOut()
         {
             Session.Abandon();

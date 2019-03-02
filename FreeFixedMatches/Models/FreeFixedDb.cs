@@ -7,7 +7,6 @@ namespace FreeFixedMatches.Models
 
     public partial class FreeFixedDb : DbContext
     {
-        public DbSet<TestTable> TestTables { get; set; }
         public DbSet<FreeTip> FreeTips { get; set; }
         public DbSet<MonthlySubscration> MonthlySubscrations { get; set; }
 
