@@ -9,7 +9,7 @@ namespace FreeFixedMatches.Models
     {
         public int Id { get; set; }
         public string Date { get; set; }
-        public string TotalOdd { get; set; }
+        public double TotalOdd { get; set; }
         public string Match { get; set; }
         public string Tip { get; set; }
         public double Odd { get; set; }

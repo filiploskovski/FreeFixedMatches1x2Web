@@ -161,6 +161,10 @@
     <Compile Include="Migrations\201903021813508_changeToDb.Designer.cs">
       <DependentUpon>201903021813508_changeToDb.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903022042531_MonthlyTotalStringToDouble.cs" />
+    <Compile Include="Migrations\201903022042531_MonthlyTotalStringToDouble.Designer.cs">
+      <DependentUpon>201903022042531_MonthlyTotalStringToDouble.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\FreeFixedDb.cs" />
     <Compile Include="Models\FreeTip.cs" />
@@ -351,6 +355,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903021813508_changeToDb.resx">
       <DependentUpon>201903021813508_changeToDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903022042531_MonthlyTotalStringToDouble.resx">
+      <DependentUpon>201903022042531_MonthlyTotalStringToDouble.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

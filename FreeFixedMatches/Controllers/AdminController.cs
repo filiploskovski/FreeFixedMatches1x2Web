@@ -15,12 +15,10 @@ namespace FreeFixedMatches.Controllers
     public class AdminController : Controller
     {
         private FreeFixedDb _context;
-
         public AdminController()
         {
             _context = new FreeFixedDb();
         }
-
         protected override void Dispose(bool disposing)
         {
             _context.Dispose();
@@ -30,14 +28,12 @@ namespace FreeFixedMatches.Controllers
         {
             return View();
         }
-
         private void ChangeValueToList(MonthlyOffersJson offersJson,string name,string text,int price)
         {
             offersJson.NameOffer = name;
             offersJson.TextOffer = text;
             offersJson.PriceOffer = price;
         }
-
         public ViewResult AddFreeTip()
         {
             var freeTips = _context.FreeTips.OrderByDescending(d => d.Date).ToList();
@@ -47,7 +43,6 @@ namespace FreeFixedMatches.Controllers
             };
             return View(newViewModelFreeTips);
         }
-
         [HttpPost]
         public ActionResult AddToFreeTip(FreeTipViewModel freeTipsView)
         {
@@ -67,7 +62,6 @@ namespace FreeFixedMatches.Controllers
             };
             return View("AddFreeTip", newViewModelFreeTips);
         }
-
         public ActionResult DeleteMatch(int id)
         {
             var freeTip = _context.FreeTips.FirstOrDefault(x => x.Id == id);
@@ -80,7 +74,6 @@ namespace FreeFixedMatches.Controllers
             };
             return View("AddFreeTip", newViewModelFreeTips);
         }
-
         public ActionResult AddMonthly()
         {
             var monthlyTable = _context.MonthlySubscrations.OrderByDescending(d => d.Date).ToList();
@@ -90,7 +83,6 @@ namespace FreeFixedMatches.Controllers
             };
             return View(newViewModel);
         }
-
         [HttpPost]
         public ActionResult AddMonthlyToDb(MonthlyAdminViewModel monthlyAdminView)
         {
@@ -101,6 +93,30 @@ namespace FreeFixedMatches.Controllers
                 monthlyAdminView.monthlySubscration.Tip = Convert.ToString('2');
             else
                 monthlyAdminView.monthlySubscration.Tip = Convert.ToString('X');
+
+            //proveruva dali ima element so toj datum i ako nema totalOdd go stava da bide na novozadadeniot odd
+            if (_context.MonthlySubscrations.Where(date => date.Date == monthlyAdminView.monthlySubscration.Date)
+                    .ToList().Count == 0)
+                monthlyAdminView.monthlySubscration.TotalOdd = monthlyAdminView.monthlySubscration.Odd;
+            //ima elementi => gi zima site na toj den i proveruva dali e eden => ako e eden togas na noviot Total oDD mu go dodava stariot i do mnozi so noviot Odd
+            else
+            {
+                var getAllOnDateQ = _context.MonthlySubscrations
+                    .Where(date => date.Date == monthlyAdminView.monthlySubscration.Date).ToList();
+                if (getAllOnDateQ.Count == 1)
+                    monthlyAdminView.monthlySubscration.TotalOdd = getAllOnDateQ[0].TotalOdd * monthlyAdminView.monthlySubscration.Odd;
+                else
+                {  //znaci ima poise od eden element na toj datum i gi proga niz loop i gi dadava site 
+                    foreach (var odd in getAllOnDateQ)
+                    {
+                         monthlyAdminView.monthlySubscration.TotalOdd = odd.TotalOdd * monthlyAdminView.monthlySubscration.Odd;
+                    }
+                }
+
+            }
+            //pravi update vo baza za na starite TotalOdd da go dodade noviot TotalOdd
+            _context.MonthlySubscrations.Where(date => date.Date == monthlyAdminView.monthlySubscration.Date).ToList()
+                .ForEach( totalOdd => totalOdd.TotalOdd = monthlyAdminView.monthlySubscration.TotalOdd);
             _context.MonthlySubscrations.Add(monthlyAdminView.monthlySubscration);
             _context.SaveChanges();
             var monthlyTable = _context.MonthlySubscrations.OrderByDescending(d => d.Date).ToList();
@@ -110,7 +126,6 @@ namespace FreeFixedMatches.Controllers
             };
             return View("AddMonthly",newViewModel);
         }
-
         public ActionResult DeleteMonthly(int id)
         {
             var monthlyTip = _context.MonthlySubscrations.FirstOrDefault(x => x.Id == id);
@@ -123,12 +138,10 @@ namespace FreeFixedMatches.Controllers
             };
             return View("AddMonthly",newViewModelMonthly);
         }
-
         public ViewResult AddVipTicket()
         {
             return View();
         }
-
         [HttpPost]
         public ActionResult AddVipToDb(VipTicket vipTicket)
         {
@@ -141,7 +154,6 @@ namespace FreeFixedMatches.Controllers
             _context.SaveChanges();
             return View("AddVipTicket");
         }
-
         public ViewResult DeleteVipTicket()
         {
             var vipTickets = _context.VipTickets.ToList();
@@ -151,7 +163,6 @@ namespace FreeFixedMatches.Controllers
             };
             return View(vipTicketsList);
         }
-
         public ActionResult DeleteVip(int id)
         {
             var ticketToDelete = _context.VipTickets.FirstOrDefault(x => x.Id == id);
@@ -166,6 +177,9 @@ namespace FreeFixedMatches.Controllers
 
             return View("DeleteVipTicket", vipTicketsList);
         }
+
+
+            //----------------------------------------RABOTA SO JSON ---------------------------------------------------------------------------------
 
         public ViewResult ChangeMonthlyOffers()
         {
