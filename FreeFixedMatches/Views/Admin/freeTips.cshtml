@@ -25,8 +25,17 @@
 
 
 @section scripts {
-    <script>$(document).ready(function() {
-    $("#datepicker").datepicker({ dateFormat: 'dd/mm/yy'});
-});</script>
+    <script>
+        $(document).ready(function () {
+            $("#datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
+            $.getJSON("/JsonFiles/MonthlyOffers.json",
+                function(data) {
+                    var list = [];
+                    $.each(data,
+                        function(key, value) {
+                            console.log("Key ->" + key + "Value -> " + value);
+                });
+        });
+    </script>
 }
 

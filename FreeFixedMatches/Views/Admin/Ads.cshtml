@@ -14,15 +14,15 @@
 </div>
     <div class="form-group">
         @Html.LabelFor(f => f.TopAds.Id)
-        @Html.TextBoxFor(f => f.TopAds.Id, new { @id = "datepicker", @class = "form-control" })
+        @Html.TextBoxFor(f => f.TopAds.Id, new { @id = "js-id-adds", @class = "form-control", @readonly = "readonly" })
     </div>
     <div class="form-group">
               @Html.LabelFor(f => f.TopAds.Alt)
-              @Html.TextBoxFor(f => f.TopAds.Alt, new { @id = "datepicker", @class = "form-control" })
+              @Html.TextBoxFor(f => f.TopAds.Alt, new { @class = "form-control" })
           </div>
     <div class="form-group">
         @Html.LabelFor(f => f.TopAds.ImgUrl)
-        @Html.TextBoxFor(f => f.TopAds.ImgUrl, new { @id = "datepicker", @class = "form-control" })
+        @Html.TextBoxFor(f => f.TopAds.ImgUrl, new { @class = "form-control" })
     </div>
 
     <button type="submit">Save</button>
@@ -64,6 +64,10 @@
                 function(data) {
                     $.each(data,
                         function (key, value) {
+                            $('#js-id-adds').val(key+1);
+                            if (key == 0) {
+                                $('#js-id-adds').val(0);
+                            }
                             if (value.TopBottom) {
                                 $(".js-table-top").append(
                                     '<tr><td>' +
@@ -72,7 +76,7 @@
                                     value.Alt +
                                     '</td><td>' +
                                     value.ImgUrl +
-                                    '</td><td><button class="btn btn-link get-row" onclick="deleteoffer()">Delete</button></td>');
+                                    '</td><td><button class="btn btn-link delete" onclick="DeleteOffer()">Delete</button></td>');
                             } else {
                                 $(".js-table-down").append(
                                     '<tr><td>' +
@@ -81,13 +85,25 @@
                                     value.Alt +
                                     '</td><td>' +
                                     value.ImgUrl +
-                                    '</td><td><button class="btn btn-link get-row" onclick="deleteoffer()">Delete</button></td>');
+                                    '</td><td><button class="btn btn-link delete" onclick="DeleteOffer()">Delete</button></td>');
                             }
                         });
                 });
         });
+
+        function DeleteOffer() {
+            console.log("vlaga vo delete");
+            $(document).ready(function() {
+                $(".delete").click(function() {
+                    var $row = $(this).closest("tr"); // Find the row
+                    var tds = $row.find("td");
+                    $.get('@Url.Action("DeleteAdd", "Admin")', { id: tds[0].innerText }).done(function() {
+                        alert( "Data Loaded");
+                    });
+                });
+            });
+        }
     </script>
 }
-
 
 

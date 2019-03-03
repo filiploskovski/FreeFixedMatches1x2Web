@@ -112,7 +112,6 @@ namespace FreeFixedMatches.Controllers
                          monthlyAdminView.monthlySubscration.TotalOdd = odd.TotalOdd * monthlyAdminView.monthlySubscration.Odd;
                     }
                 }
-
             }
             //pravi update vo baza za na starite TotalOdd da go dodade noviot TotalOdd
             _context.MonthlySubscrations.Where(date => date.Date == monthlyAdminView.monthlySubscration.Date).ToList()
@@ -179,13 +178,16 @@ namespace FreeFixedMatches.Controllers
         }
 
 
-            //----------------------------------------RABOTA SO JSON ---------------------------------------------------------------------------------
+        //----------------------------------------RABOTA SO JSON ---------------------------------------------------------------------------------
 
+
+        //-------------------------------------------------------- MONTHLY OFFERS ----------------------------------------------------------------
         public ViewResult ChangeMonthlyOffers()
         {
             return View();
         }
-        public ActionResult AddToJson(MonthlyOffersJson monthlyJson)
+        
+        public ActionResult AddMonthlyOffer(MonthlyOffersJson monthlyJson)
         {
             var fileContents = System.IO.File.ReadAllText(Server.MapPath(@"~/JsonFiles/MonthlyOffers.json"));
             var result = JsonConvert.DeserializeObject<List<MonthlyOffersJson>>(fileContents);
@@ -219,10 +221,10 @@ namespace FreeFixedMatches.Controllers
 
         public ActionResult DeleteMonthlyOffer(string id)
         {
-            var IdInt = Int32.Parse(id);
+            var idInt = Int32.Parse(id);
             var fileContents = System.IO.File.ReadAllText(Server.MapPath(@"~/JsonFiles/MonthlyOffers.json"));
             var result = JsonConvert.DeserializeObject<List<MonthlyOffersJson>>(fileContents);
-            var objectToDelete = result.SingleOrDefault(x => x.Id == IdInt);
+            var objectToDelete = result.SingleOrDefault(x => x.Id == idInt);
             var count = 0;
             if (objectToDelete != null)
                 result.Remove(objectToDelete);
@@ -235,6 +237,9 @@ namespace FreeFixedMatches.Controllers
             System.IO.File.WriteAllText(Server.MapPath(@"~/JsonFiles/MonthlyOffers.json"), resultForSave);
             return View("ChangeMonthlyOffers");
         }
+
+        //END MONTHLY OFFER
+        //----------------------------------------ADS------------------------------------------------------------------
 
         public ViewResult Ads()
         {
@@ -257,29 +262,22 @@ namespace FreeFixedMatches.Controllers
             return View("Ads");
         }
 
-        public ActionResult AdsDelete(AdsView adsView)
+        public ActionResult DeleteAdd(string id)
         {
-            if (adsView.TopAds.TopBottom)
+            var idInt = Int32.Parse(id);
+            var fileContents = System.IO.File.ReadAllText(Server.MapPath(@"~/JsonFiles/Ads.json"));
+            var result = JsonConvert.DeserializeObject<List<Ads>>(fileContents);
+            var objectToDelete = result.SingleOrDefault(x => x.Id == idInt);
+            var count = 0;
+            if (objectToDelete != null)
+                result.Remove(objectToDelete);
+            foreach (var sortAdds in result)
             {
-                var fileContents = System.IO.File.ReadAllText(Server.MapPath(@"~/JsonFiles/AdsTop.json"));
-                var result = JsonConvert.DeserializeObject<List<Ads>>(fileContents);
-                var objectToDelete = result.SingleOrDefault(x => x.Id == adsView.TopAds.Id);
-                if (objectToDelete != null)
-                    result.Remove(objectToDelete);
-                var resultForSave = JsonConvert.SerializeObject(result);
-                System.IO.File.WriteAllText(Server.MapPath(@"~/JsonFiles/AdsTop.json"), resultForSave);
-
+                sortAdds.Id = count;
+                count++;
             }
-            else
-            {
-                var fileContents = System.IO.File.ReadAllText(Server.MapPath(@"~/JsonFiles/AdsBottom.json"));
-                var result = JsonConvert.DeserializeObject<List<Ads>>(fileContents);
-                var objectToDelete = result.SingleOrDefault(x => x.Id == adsView.TopAds.Id);
-                if (objectToDelete != null)
-                    result.Remove(objectToDelete);
-                var resultForSave = JsonConvert.SerializeObject(result);
-                System.IO.File.WriteAllText(Server.MapPath(@"~/JsonFiles/AdsBottom.json"), resultForSave);
-            }
+            var resultForSave = JsonConvert.SerializeObject(result);
+            System.IO.File.WriteAllText(Server.MapPath(@"~/JsonFiles/Ads.json"), resultForSave);
 
             return View("Ads");
 
@@ -297,7 +295,7 @@ namespace FreeFixedMatches.Controllers
 
             foreach (var tip in tipsUnChecked)
             {
-                freeViewModel.NewFreeTips.Add(new NewFreeTips
+                freeViewModel.NewFreeTips.Add(new NewFreeTips()
                 {
                     Date = newTips.Date,
                     freeTip = tip

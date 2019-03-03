@@ -15,7 +15,7 @@
     <div class="col-md-5">
         <div id="js-Offers-New">
             <p>Add new Offer</p>
-            @using (Html.BeginForm("AddToJson", "Admin"))
+            @using (Html.BeginForm("AddMonthlyOffer", "Admin"))
             {
             <div class="form-group">
                 @Html.LabelFor(m => m.Id)
@@ -138,19 +138,12 @@
                     });
                 document.getElementById("js-Offers-New").style.display = 'block';
                 document.getElementById("js-Offers-Update").style.display = 'none';
-                document.getElementById("js-Offers-Delete").style.display = 'none';
             });
         }
 
-        function stylingDeleteOffer() {
-            document.getElementById("js-Offers-New").style.display = 'none';
-            document.getElementById("js-Offers-Delete").style.display = 'block';
-            document.getElementById("js-Offers-Update").style.display = 'none';
-        }
 
         function stylingUpdateOffer() {
             document.getElementById("js-Offers-New").style.display = 'none';
-            document.getElementById("js-Offers-Delete").style.display = 'none';
             document.getElementById("js-Offers-Update").style.display = 'block';
         }
 
