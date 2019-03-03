@@ -28,7 +28,7 @@
     <script>
         $(document).ready(function () {
             $("#datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
-            $.getJSON("/JsonFiles/MonthlyOffers.json",
+            $.getJSON("/JsonFiles/FreeTips.json",
                 function(data) {
                     var list = [];
                     $.each(data,

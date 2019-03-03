@@ -34,6 +34,12 @@ namespace FreeFixedMatches.Controllers
             offersJson.TextOffer = text;
             offersJson.PriceOffer = price;
         }
+        private void ChangeValueToListVip(VipTicketOffer offersJson, string name, string text, int price)
+        {
+            offersJson.NameOffer = name;
+            offersJson.TextOffer = text;
+            offersJson.PriceOffer = price;
+        }
         public ViewResult AddFreeTip()
         {
             var freeTips = _context.FreeTips.OrderByDescending(d => d.Date).ToList();
@@ -282,7 +288,8 @@ namespace FreeFixedMatches.Controllers
             return View("Ads");
 
         }
-
+        //----------------------------------------ADS END ---------------------------------------------------------------
+        //Free tips update
         public ViewResult freeTips()
         {
             return View();
@@ -306,6 +313,72 @@ namespace FreeFixedMatches.Controllers
             System.IO.File.WriteAllText(Server.MapPath(@"~/JsonFiles/FreeTips.json"), resultForSave);
             return View("freeTips");
         }
+
+        //---------------------------------FREE TIPS END -----------------------------------------------------------
+        //----------------------------------------------------------------------------------------------------------
+        //Vip ticket update offers
+
+        public ViewResult vipTicketOffer()
+        {
+            return View();
+        }
+
+        public ActionResult VipTicketOfferAdd(VipTicketOffer vipOffer)
+        {
+
+            var fileContents = System.IO.File.ReadAllText(Server.MapPath(@"~/JsonFiles/vipTicketOffers.json"));
+            var result = JsonConvert.DeserializeObject<List<VipTicketOffer>>(fileContents);
+            result.Add(new VipTicketOffer
+            {
+                Id = vipOffer.Id,
+                NameOffer = vipOffer.NameOffer,
+                PriceOffer = vipOffer.PriceOffer,
+                TextOffer = vipOffer.TextOffer
+            });
+            var resultForSave = JsonConvert.SerializeObject(result);
+            System.IO.File.WriteAllText(Server.MapPath(@"~/JsonFiles/vipTicketOffers.json"), resultForSave);
+
+            return View("VipTicketOffer");
+        }
+
+        public ActionResult UpdateVipTicketOffer(VipTicketOffer vipOffer)
+        {
+            var fileContents = System.IO.File.ReadAllText(Server.MapPath(@"~/JsonFiles/vipTicketOffers.json"));
+            var result = JsonConvert.DeserializeObject<List<VipTicketOffer>>(fileContents);
+            foreach (var rToChange in result)
+            {
+                if (rToChange.Id == vipOffer.Id)
+                {
+                    ChangeValueToListVip(rToChange, vipOffer.NameOffer, vipOffer.TextOffer, vipOffer.PriceOffer);
+                }
+            }
+            var resultForSave = JsonConvert.SerializeObject(result);
+            System.IO.File.WriteAllText(Server.MapPath(@"~/JsonFiles/vipTicketOffers.json"), resultForSave);
+
+            return View("VipTicketOffer");
+        }
+
+        public ActionResult DeleteVipTicketOffer(string id)
+        {
+            var idInt = Int32.Parse(id);
+            var fileContents = System.IO.File.ReadAllText(Server.MapPath(@"~/JsonFiles/vipTicketOffers.json"));
+            var result = JsonConvert.DeserializeObject<List<VipTicketOffer>>(fileContents);
+            var objectToDelete = result.SingleOrDefault(x => x.Id == idInt);
+            var count = 0;
+            if (objectToDelete != null)
+                result.Remove(objectToDelete);
+            foreach (var sortOffers in result)
+            {
+                sortOffers.Id = count;
+                count++;
+            }
+            var resultForSave = JsonConvert.SerializeObject(result);
+            System.IO.File.WriteAllText(Server.MapPath(@"~/JsonFiles/vipTicketOffers.json"), resultForSave);
+
+            return View("VipTicketOffer");
+
+        }
+
 
         public ActionResult LogOut()
         {
