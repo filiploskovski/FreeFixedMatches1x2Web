@@ -3,6 +3,12 @@
 @{
     ViewBag.Title = "freeTips";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+    if (Session["Username"] == null)
+    {
+        Response.Redirect("~/Login/Index");
+    }
 }
 
 <h2>freeTips</h2>
@@ -10,11 +16,6 @@
 
 @using (Html.BeginForm("addFreeTips", "Admin"))
 {
-    <div class="form-group">
-        @Html.LabelFor(f => f.Date)
-        @Html.TextBoxFor(f => f.Date, new { @id = "datepicker", @class = "form-control" })
-    </div>
-    
     <div class="form-group">
         @Html.LabelFor(f => f.freeTip)
         @Html.TextAreaFor(f => f.freeTip,new{@class="form-control"})
@@ -26,14 +27,14 @@
 
 @section scripts {
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $("#datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
             $.getJSON("/JsonFiles/FreeTips.json",
                 function(data) {
-                    var list = [];
                     $.each(data,
                         function(key, value) {
                             console.log("Key ->" + key + "Value -> " + value);
+                        });
                 });
         });
     </script>

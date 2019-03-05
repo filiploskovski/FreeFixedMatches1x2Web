@@ -165,15 +165,21 @@
     <Compile Include="Migrations\201903022042531_MonthlyTotalStringToDouble.Designer.cs">
       <DependentUpon>201903022042531_MonthlyTotalStringToDouble.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903042120166_AddTitleTagInVipTicket.cs" />
+    <Compile Include="Migrations\201903042120166_AddTitleTagInVipTicket.Designer.cs">
+      <DependentUpon>201903042120166_AddTitleTagInVipTicket.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\FreeFixedDb.cs" />
     <Compile Include="Models\FreeTip.cs" />
+    <Compile Include="Models\FreeTipsDateChange.cs" />
     <Compile Include="Models\MonthlyOffersJson.cs" />
     <Compile Include="Models\MonthlySubscration.cs" />
     <Compile Include="Models\Ads.cs" />
     <Compile Include="Models\NewFreeTips.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\VipTicket.cs" />
+    <Compile Include="Models\VipTicketDate.cs" />
     <Compile Include="Models\VipTicketOffer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\AdsView.cs" />
@@ -234,6 +240,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\AssetsScripts\MonthlySubscrationClient.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -260,6 +267,8 @@
     <Content Include="JsonFiles\MonthlyOffers.json" />
     <Content Include="JsonFiles\Ads.json" />
     <Content Include="JsonFiles\FreeTips.json" />
+    <Content Include="JsonFiles\VipTicketDate.json" />
+    <Content Include="JsonFiles\FreeTipDateChange.json" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -319,10 +328,13 @@
     <Content Include="Views\Admin\freeTips.cshtml" />
     <Content Include="Views\Admin\DeleteVipTicket.cshtml" />
     <Content Include="Views\Admin\vipTicketOffer.cshtml" />
+    <Content Include="Views\Admin\VipTicketDate.cshtml" />
+    <Content Include="Views\Admin\FreeTipsDate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Assets\VipTickets\" />
+    <Folder Include="Content\imgWebsite\" />
     <Folder Include="Content\PaymentMethods\" />
   </ItemGroup>
   <ItemGroup>
@@ -360,6 +372,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903022042531_MonthlyTotalStringToDouble.resx">
       <DependentUpon>201903022042531_MonthlyTotalStringToDouble.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903042120166_AddTitleTagInVipTicket.resx">
+      <DependentUpon>201903042120166_AddTitleTagInVipTicket.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -10,6 +10,7 @@ namespace FreeFixedMatches.Models
         public bool TopBottom { get; set; }
         public int Id { get; set; }
         public string Alt { get; set; }
+        public string Title { get; set; }
         public string ImgUrl { get; set; }
     }
 }

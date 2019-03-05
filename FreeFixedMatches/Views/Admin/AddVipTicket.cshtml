@@ -1,22 +1,29 @@
 ﻿@model FreeFixedMatches.Models.VipTicket
-
 @{
     ViewBag.Title = "AddVipTicket";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+    if (Session["Username"] == null)
+    {
+        Response.Redirect("~/Login/Index");
+    }
 }
-
 <h2>AddVipTicket</h2>
-
 
 @using (Html.BeginForm("AddVipToDb", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div class="form-group">
         @Html.LabelFor(v => v.Date)
-        @Html.TextBoxFor(v =>v.Date, new { @class = "form-control", @id = "datepicker" })
+        @Html.TextBoxFor(v => v.Date, new { @class = "form-control", @id = "datepicker" })
     </div>
     <div class="form-group">
         @Html.LabelFor(v => v.Title)
         @Html.TextBoxFor(v => v.Title, new { @class = "form-control", @Value = "fixed matches" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(v => v.Alt)
+        @Html.TextBoxFor(v => v.Alt, new { @class = "form-control", @Value = "weekly vip ticket on our fixed matches offer" })
     </div>
     <div class="form-group">
         <input type="file" name="imageFile" required />
@@ -24,14 +31,11 @@
     <button type="submit" class="btn btn-primary">Save</button>
 }
 
-
 @section scripts {
     <script>
-        $(document).ready(function() {
-            $("#datepicker").datepicker({ dateFormat: 'dd/mm/yy'});
+        $(document).ready(function () {
+            $("#datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
         });
 
     </script>
-
 }
-

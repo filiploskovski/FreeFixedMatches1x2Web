@@ -260,6 +260,7 @@ namespace FreeFixedMatches.Controllers
             {
                 Id = adsView.TopAds.Id,
                 Alt = adsView.TopAds.Alt,
+                Title = adsView.TopAds.Title,
                 ImgUrl = adsView.TopAds.ImgUrl,
                 TopBottom = adsView.TopAds.TopBottom
             });
@@ -298,20 +299,21 @@ namespace FreeFixedMatches.Controllers
         public ActionResult addFreeTips(NewFreeTips newTips)
         {
             var tipsUnChecked = newTips.freeTip.Split(Convert.ToChar(","));
-            var freeViewModel = new NewFreeTipsView();
-
-            foreach (var tip in tipsUnChecked)
-            {
-                freeViewModel.NewFreeTips.Add(new NewFreeTips()
-                {
-                    Date = newTips.Date,
-                    freeTip = tip
-                });
-            }
-
-            var resultForSave = JsonConvert.SerializeObject(freeViewModel);
+            var resultForSave = JsonConvert.SerializeObject(tipsUnChecked);
             System.IO.File.WriteAllText(Server.MapPath(@"~/JsonFiles/FreeTips.json"), resultForSave);
             return View("freeTips");
+        }
+
+        public ViewResult FreeTipsDate()
+        {
+            return View();
+        }
+
+        public ActionResult FreeTipsDateChangeActionResult(FreeTipsDateChange dateFreeChange)
+        {
+            var resultForSave = JsonConvert.SerializeObject(dateFreeChange);
+            System.IO.File.WriteAllText(Server.MapPath(@"~/JsonFiles/FreeTipDateChange.json"), resultForSave);
+            return View("FreeTipsDate");
         }
 
         //---------------------------------FREE TIPS END -----------------------------------------------------------
@@ -376,7 +378,18 @@ namespace FreeFixedMatches.Controllers
             System.IO.File.WriteAllText(Server.MapPath(@"~/JsonFiles/vipTicketOffers.json"), resultForSave);
 
             return View("VipTicketOffer");
+        }
 
+        public ViewResult VipTicketDate()
+        {
+            return View();
+        }
+
+        public ActionResult ChangeVipTicketDate(VipTicketDate ticketDate)
+        {
+            var resultForSave = JsonConvert.SerializeObject(ticketDate);
+            System.IO.File.WriteAllText(Server.MapPath(@"~/JsonFiles/VipTicketDate.json"), resultForSave);
+            return View("VipTicketDate");
         }
 
 

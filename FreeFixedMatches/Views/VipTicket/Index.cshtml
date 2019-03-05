@@ -21,7 +21,7 @@
     </div>
     <!-- /.col-md-4 -->
 </div>
-<div class="card text-white bg-secondary my-5 py-4 text-center">
+<div class="card text-white bg-secondary my-5  text-center">
     <div class="card-body">
         <p class="text-white m-0">
             This call to action card is a great place to showcase some important
@@ -29,11 +29,11 @@
         </p>
     </div>
 </div>
-<div class="row js-Offers">
+<div class="row js-vip-offers">
 </div>
 
 
-<div class="card text-white bg-secondary my-5 py-4 text-center">
+<div class="card text-white bg-secondary my-5  text-center">
     <div class="card-body">
         <p class="text-white m-0">
             This call to action card is a great place to showcase some important
@@ -48,11 +48,11 @@
     {
         <div class="col-md-3 mb-5">
             <div class="card h-100 text-center">
-                <a href="#url"><img class="card-img-top" src="@vip.ImagePath" alt="@vip.Title"></a>
+                <img class="card-img-top" src="@vip.ImagePath" alt="@vip.Title" title="@vip.Alt">
                 <div class="card-body">
                     <h2 class="card-title">
                         <span class="fa fa-external-link mr-1"></span>
-                        <a href="#url">@vip.Date</a>
+                        <p>@vip.Date</p>
                     </h2>
                 </div>
             </div>
@@ -64,17 +64,19 @@
     <script>
         var list = [];
         $(document).ready(function() {
-            $.getJSON("/JsonFiles/vipTicketOffers.json", function(result){
-                $.each(result, function(key, value){
-                    list.push(value);
-                    $(".js-Offers").append(
-                        '<div class="col-md-6 mb-5"><div class="card h-100"><div class="card-body">'+
-                        '<h2 class="card-title">' + value.Name + '</h2>'+
-                        '<p class="card-text">' + value.Text +
-                        '</p></div></div></div>'
-                        );
+            $.getJSON("/JsonFiles/vipTicketOffers.json",
+                function(data) {
+                    $.each(data,
+                        function (key, value) {
+                            $(".js-vip-offers").append(
+                                '<div class="col-md-6 mb-2">' +
+                                '<div class="card h-100">' +
+                                '<div class="card-body">' +
+                                '<h2 class="card-title">' + value.NameOffer +'</h2>' +
+                                '<p class="card-text">' + value.TextOffer +'</p>' +
+                                '<h5 class="card-text">Price: ' + value.PriceOffer + ' euros</h5></div></div></div>');
+                        });
                 });
-            });
         });
 
     </script>

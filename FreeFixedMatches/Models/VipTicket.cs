@@ -15,6 +15,8 @@ namespace FreeFixedMatches.Models
         [DisplayName("Image alt tag:")]
         public string Title { get; set; }
         [Required]
+        public string Alt { get; set; }
+        [Required]
         public string ImagePath { get; set; }
         [Required]
         public string Date { get; set; }

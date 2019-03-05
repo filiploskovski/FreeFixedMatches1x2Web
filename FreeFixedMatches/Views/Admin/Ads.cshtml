@@ -2,6 +2,12 @@
 @{
     ViewBag.Title = "Ads";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+    if (Session["Username"] == null)
+    {
+        Response.Redirect("~/Login/Index");
+    }
 }
 
 <h2>Ads</h2>
@@ -17,9 +23,13 @@
         @Html.TextBoxFor(f => f.TopAds.Id, new { @id = "js-id-adds", @class = "form-control", @readonly = "readonly" })
     </div>
     <div class="form-group">
-              @Html.LabelFor(f => f.TopAds.Alt)
-              @Html.TextBoxFor(f => f.TopAds.Alt, new { @class = "form-control" })
-          </div>
+        @Html.LabelFor(f => f.TopAds.Alt)
+        @Html.TextBoxFor(f => f.TopAds.Alt, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(f => f.TopAds.Title)
+        @Html.TextBoxFor(f => f.TopAds.Title, new { @class = "form-control" })
+    </div>
     <div class="form-group">
         @Html.LabelFor(f => f.TopAds.ImgUrl)
         @Html.TextBoxFor(f => f.TopAds.ImgUrl, new { @class = "form-control" })
@@ -32,24 +42,26 @@
 <div class="table-responsive">
     <table class="table table-bordered table-sm" style="overflow-y:auto;">
         <thead>
-        <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Alt</th>
-            <th scope="col">Image</th>
-            <th scope="col">Delete</th>
-        </tr>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Alt</th>
+                <th scope="col">Title</th>
+                <th scope="col">Image</th>
+                <th scope="col">Delete</th>
+            </tr>
         </thead>
         <tbody class="js-table-top">
         </tbody>
     </table>
     <table class="table table-bordered table-sm" style="overflow-y:auto;">
         <thead>
-        <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Alt</th>
-            <th scope="col">Image</th>
-            <th scope="col">Delete</th>
-        </tr>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Alt</th>
+                <th scope="col">Title</th>
+                <th scope="col">Image</th>
+                <th scope="col">Delete</th>
+            </tr>
         </thead>
         <tbody class="js-table-down">
         </tbody>
@@ -75,6 +87,8 @@
                                     '</td><td>' +
                                     value.Alt +
                                     '</td><td>' +
+                                    value.Title +
+                                    '</td><td>' +
                                     value.ImgUrl +
                                     '</td><td><button class="btn btn-link delete" onclick="DeleteOffer()">Delete</button></td>');
                             } else {
@@ -83,6 +97,8 @@
                                     value.Id +
                                     '</td><td>' +
                                     value.Alt +
+                                    '</td><td>' +
+                                    value.Title +
                                     '</td><td>' +
                                     value.ImgUrl +
                                     '</td><td><button class="btn btn-link delete" onclick="DeleteOffer()">Delete</button></td>');

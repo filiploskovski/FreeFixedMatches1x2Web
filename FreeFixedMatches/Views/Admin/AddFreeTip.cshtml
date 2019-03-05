@@ -2,6 +2,12 @@
 @{
     ViewBag.Title = "AddFreeTip";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+    if (Session["Username"] == null)
+    {
+        Response.Redirect("~/Login/Index");
+    }
 }
 
 <h2>AddFreeTip</h2>

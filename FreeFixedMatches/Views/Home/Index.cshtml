@@ -6,7 +6,7 @@
 }
 <div class="row align-items-center my-5">
     <div class="col-lg-7">
-        <img class="img-fluid rounded mb-4 mb-lg-0" src="http://placehold.it/900x400" alt="">
+        <img class="img-fluid rounded mb-4 mb-lg-0" src="~/Content/imgWebsite/indexBanner.png" alt="">
     </div>
     <!-- /.col-lg-8 -->
     <div class="col-lg-5">
@@ -86,6 +86,11 @@
 
 <div class="row">
     <div class="col-md-12">
+        <div class="alert alert-danger js-vip-date" role="alert">
+            
+        </div>
+    </div>
+    <div class="col-md-12">
         <p>
             This is the most saled offer in our company.
             Matches are from the best and the most most reliable sourses.
@@ -94,8 +99,9 @@
         </p>
     </div>
     <div class="col-md-6 mb-5">
-        <!-- Sliki tiketi -->
-        <p>Last week vip ticket</p>
+        <hr />
+        <p class="vipTicketImgOfferText">Last week vip ticket</p>
+        <hr />
         @foreach (var ticket in Model.VipTickets)
         {
             <div class="card">
@@ -107,27 +113,9 @@
         }
     </div>
     <div class="col-md-6 mb-2 js-vip-offers">
-        <p>Vip ticket offers</p>
-        <div class="col-md-12 mb-5">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h2 class="card-title">One Vip Ticket</h2>
-                    <p class="card-text">
-                        Price of one vip ticket with 4 fixed matches is 50 euros.
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-12 mb-2">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h2 class="card-title">Packet Three Vip Ticket</h2>
-                    <p class="card-text">
-                        Price of Packet of tickets is 110 euros.
-                    </p>
-                </div>
-            </div>
-        </div>
+        <hr />
+        <p class="vipTicketImgOfferText">Vip ticket offers</p>
+        <hr />
     </div>
 </div>
 <div class="card text-white bg-secondary my-3 text-center">
@@ -193,9 +181,12 @@
             </table>
         </div>
     </div>
-    <div class="col-md-6 mb-5">
+    <div class="col-md-6 mb-5 ">
+        <div class="row js-freeTips-date">
+
+        </div>
+        <hr/>
         <ul class="list-group js-freeTips">
-            <li class="list-group-item">Vestibulum at eros</li>
         </ul>
     </div>
 </div>
@@ -232,6 +223,25 @@
                                 '<h5 class="card-text">Price: ' + value.PriceOffer + ' euros</h5></div></div></div>');
                         });
                 });
+            $.getJSON("/JsonFiles/vipTicketOffers.json",
+                function(data) {
+                    $.each(data,
+                        function (key, value) {
+                            $(".js-vip-offers").append(
+                                '<div class="col-md-12 mb-2">' +
+                                '<div class="card h-100">' +
+                                '<div class="card-body">' +
+                                '<h2 class="card-title">' + value.NameOffer +'</h2>' +
+                                '<p class="card-text">' + value.TextOffer +'</p>' +
+                                '<h5 class="card-text">Price: ' + value.PriceOffer + ' euros</h5></div></div></div>');
+                        });
+                });
+            $.getJSON("/JsonFiles/FreeTipDateChange.json",
+                function (data) {
+                    $(".js-freeTips-date").append(
+                        '<h4>Free Tips for today: ' + data.FreeTipsDate + '</h4>');
+                });
+
             $.getJSON("/JsonFiles/FreeTips.json",
                 function(data) {
                     $.each(data,
@@ -240,6 +250,12 @@
                                 '<li class="list-group-item">' + value + '</li>');
                         });
                 });
+            $.getJSON("/JsonFiles/VipTicketDate.json",
+                function (data) {
+                            $(".js-vip-date").append(
+                                '<h3>NEXT VIP TICKET WITH 4 FIXED MATCHES IS FOR -><span><strong>' + data.VipDateForChange +'</strong></span></h3>');
+                });
+            
         });
     </script>
 }

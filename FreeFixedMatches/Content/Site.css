@@ -1,1 +1,40 @@
-﻿
+﻿body {
+    background-color: #e6eff3;
+}
+.text-white {
+    color: #fff !important;
+    font-size: large;
+    font-weight: 700;
+}
+.bg-secondary {
+    background-image: linear-gradient(to right, #2b2f5b , #2cb3bc);
+    border: none;
+}
+.bg-light {
+    background-image: linear-gradient(to right, #2b2f5b, #2cb3bc);
+}
+.navbar-light .navbar-brand {
+    color: rgba(255, 255,255, 0.9);
+    font-weight: 700;
+}
+.navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link {
+    color: rgba(255, 255,255, 0.9);
+    font-weight: 600;
+}
+.card {
+    background-color: #f3f3f3;
+}
+.table-responsive > .table-bordered {
+    background-color: #f3f3f3;
+}
+.list-group-item {
+    background-color: #f3f3f3;
+}
+.alert-primary {
+    text-align: center;
+}
+.vipTicketImgOfferText {
+    text-align: center;
+    font-size: x-large;
+    font-weight: 900;
+}

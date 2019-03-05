@@ -1,0 +1,32 @@
+﻿@model FreeFixedMatches.Models.VipTicketDate
+@{
+    ViewBag.Title = "VipTicketDate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+    if (Session["Username"] == null)
+    {
+        Response.Redirect("~/Login/Index");
+    }
+}
+
+<h2>VipTicketDate</h2>
+
+
+
+@using (Html.BeginForm("ChangeVipTicketDate", "Admin"))
+{
+    <div class="form-group">
+    @Html.LabelFor(v => v.VipDateForChange)
+    @Html.TextBoxFor(v => v.VipDateForChange,new {@class="form-control",@id= "datepicker" })
+    </div>
+    <button type="submit">Update Date</button>
+}
+
+@section scripts {
+    <script>$(document).ready(function() {
+    $("#datepicker").datepicker({ dateFormat: 'dd/mm/yy'});
+});</script>
+}
+
+
