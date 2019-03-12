@@ -38,3 +38,12 @@
     font-size: x-large;
     font-weight: 900;
 }
+.css-email-key, .css-email-name {
+    font-size: 22px;
+}
+.css-email-name {
+    color: red;
+}
+.css-text-offers {
+    line-height: 30px;
+}

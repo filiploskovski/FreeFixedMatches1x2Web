@@ -1,1 +1,20 @@
-[{"Id":0,"NameOffer":" Offer One","TextOffer":" Text For Offer 1","PriceOffer":10},{"Id":1,"NameOffer":" Offer 2 ","TextOffer":" Vip Ticket Offer 2","PriceOffer":150},{"Id":2,"NameOffer":" Offer three","TextOffer":" Latest offer ","PriceOffer":50}]
+[  
+  {  
+    "Id":0,
+    "NameOffer":" Double entry offer",
+    "TextOffer":" 10 days -> Every day two fixed matches with minimum odd of 10.",
+    "PriceOffer":50
+  },
+  {
+    "Id": 1,
+    "NameOffer": " Double middle offer ",
+    "TextOffer": " 20 days -> Every day two fixed matches with minimum odd of 10.",
+    "PriceOffer": 80
+  },
+  {
+    "Id": 2,
+    "NameOffer": " Double luxury offer",
+    "TextOffer": " 30 days -> Every day two fixed matches with minimum odd of 15. ",
+    "PriceOffer": 100
+  }
+]

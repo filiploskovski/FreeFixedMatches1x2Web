@@ -1,22 +1,111 @@
 ﻿@using Microsoft.Ajax.Utilities
 @model FreeFixedMatches.ViewModel.ViewModelData
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Fixed matches, Offer with monthly subscription with real sure fixed matches";
+    ViewBag.Description = "Free fixed matches, monthly subscription with daily odd of 10 and two fixed matches";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>Monthly Tips</h2>
 
 @Html.Partial("_FirstPanel")
 
 <div class="row js-Offers">
 
 </div>
+<div class="card text-white bg-secondary my-5  text-center">
+    <div class="card-body">
+        <p class="text-white m-0">
+            WHAT OUR CUSTOMERS SAYS ABOUT OUR MONTHLY <b>SURE FIXED MATCHES</b> OFFER
+        </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4 mb-5">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2 d-none d-sm-block">
+                        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
+                    </div>
+                    <div class="col-md-10">
+                        <p>
+                            <a class="float-left"><strong>Nicolas Malininous</strong></a>
+                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                        </p>
+                        <div class="clearfix"></div>
+                        <p>
+                            You run a very fair and honest company, which is why I will continue to purchase your daily fixed matches. 
+                            No other site is close to as good as you guys are. Thanks.
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-5">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2 d-none d-sm-block">
+                        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
+                    </div>
+                    <div class="col-md-10">
+                        <p>
+                            <a class="float-left"><strong>Mario Garvilia</strong></a>
+                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                        </p>
+                        <div class="clearfix"></div>
+                        <p>
+                            A genuine service. I’ve been with them for a while now and they have always provided me with nice sure tips that always win. That is very good for me, 
+                            cause it gives great morale knowing that every day you have at least one prediction that always wins.
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-5">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2 d-none d-sm-block">
+                        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
+                    </div>
+                    <div class="col-md-10">
+                        <p>
+                            <a class="float-left"><strong>Andrea  Carloti</strong></a>
+                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                        </p>
+                        <div class="clearfix"></div>
+                        <p>
+                            Let me wrap this up in 2 words: VERY POWER FULL !. I was referred by a friend and boy am i happy i signed up for this sure fixed matches offer. 
+                            This guy offers me a very nice EXTRA INCOME each month.
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="card text-white bg-secondary my-5 text-center">
     <div class="card-body">
         <p class="text-white m-0">
-            This call to action card is a great place to showcase some important
-            information or display a clever tagline!
+            Passed matches from our daily monthly fixed matches offer
         </p>
     </div>
 </div>
@@ -65,7 +154,10 @@
                         '<div class="col-md-4 mb-5"><div class="card h-100"><div class="card-body">'+
                         '<h2 class="card-title">' + value.NameOffer + '</h2>'+
                         '<p class="card-text">' + value.TextOffer +
-                        '</p></div></div></div>'
+                        '</p>' +
+                        '<p class="card-text"><b>' + value.PriceOffer +
+                        ' euros</b></p>' +
+                        '</div></div></div>'
                     );
                 });
             });

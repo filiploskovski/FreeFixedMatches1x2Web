@@ -27,7 +27,9 @@ namespace FreeFixedMatches
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
-                      "~/Content/themes/base/jquery-ui.css"));
+                      "~/Content/themes/base/jquery-ui.css",
+                      "~/Content/font-awesome.min.css"
+                      ));
         }
     }
 }
