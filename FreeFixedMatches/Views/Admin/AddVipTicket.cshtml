@@ -10,6 +10,17 @@
     }
 }
 <h2>AddVipTicket</h2>
+@{
+    try
+    {
+        if (Model.Exception != null)
+        {
+            <h2>@Model.Exception</h2>
+        }
+    }
+    catch { }
+   
+}
 
 @using (Html.BeginForm("AddVipToDb", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -30,6 +41,8 @@
     </div>
     <button type="submit" class="btn btn-primary">Save</button>
 }
+
+
 
 @section scripts {
     <script>

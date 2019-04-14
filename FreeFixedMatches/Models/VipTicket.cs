@@ -22,5 +22,6 @@ namespace FreeFixedMatches.Models
         public string Date { get; set; }
         [NotMapped]
         public HttpPostedFileBase ImageFile { get; set; }
+        [NotMapped] public string Exception { get; set; }
     }
 }

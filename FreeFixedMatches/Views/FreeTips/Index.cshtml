@@ -9,9 +9,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Free Tips</h2>
-
-
 <div class="row align-items-center my-5">
     <div class="col-lg-7">
         <img class="img-fluid rounded mb-4 mb-lg-0" src="~/Content/imgWebsite/FreeFixedBanner.png" alt="free fixed matches on our website with most advanced analysis">
@@ -54,7 +51,7 @@
                 <td>@tip.Date</td>
                 <td>@tip.Match</td>
                 <td>@tip.Tip</td>
-                <td>@tip.Odd</td>
+                <td>@String.Format("{0:0.00}",tip.Odd)</td>
                 <td>@tip.Result</td>
                 <td>@tip.WinLose</td>
             </tr>

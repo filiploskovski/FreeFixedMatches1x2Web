@@ -27,7 +27,7 @@ namespace FreeFixedMatches.Controllers
         // GET: FreeTips
         public ViewResult Index()
         {
-            var freeTips = _context.FreeTips.ToList();
+            var freeTips = _context.FreeTips.OrderByDescending(f => f.Id).ToList();
 
 
             var freeTipsViewResult = new ViewModel.ViewModelData

@@ -14,13 +14,9 @@
 
 @using (Html.BeginForm("AdsAdd", "Admin"))
 {
-<div class="form-group">
-    @Html.RadioButtonFor(f => f.TopAds.TopBottom, true) Add to top Adds
-    @Html.RadioButtonFor(f => f.TopAds.TopBottom, false)  Add to bottom Adds
-</div>
     <div class="form-group">
-        @Html.LabelFor(f => f.TopAds.Id)
-        @Html.TextBoxFor(f => f.TopAds.Id, new { @id = "js-id-adds", @class = "form-control", @readonly = "readonly" })
+        @Html.RadioButtonFor(f => f.TopAds.TopBottom, true) Add to top Adds
+        @Html.RadioButtonFor(f => f.TopAds.TopBottom, false)  Add to bottom Adds
     </div>
     <div class="form-group">
         @Html.LabelFor(f => f.TopAds.Alt)
@@ -33,6 +29,10 @@
     <div class="form-group">
         @Html.LabelFor(f => f.TopAds.ImgUrl)
         @Html.TextBoxFor(f => f.TopAds.ImgUrl, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(f => f.TopAds.Url)
+        @Html.TextBoxFor(f => f.TopAds.Url, new { @class = "form-control" })
     </div>
 
     <button type="submit">Save</button>
@@ -50,7 +50,21 @@
                 <th scope="col">Delete</th>
             </tr>
         </thead>
-        <tbody class="js-table-top">
+        <tbody>
+            @foreach (var res in Model.TopAdsList)
+            {
+                if (res.TopBottom)
+                {
+            <tr>
+                <td>@res.Id</td>
+                <td>@res.Alt</td>
+                <td>@res.Title</td>
+                <td>@res.ImgUrl</td>
+                <td>@Html.ActionLink("Delete", "DeleteAdd", "Admin", new { id = res.Id }, null)</td>
+                <td></td>
+            </tr>
+                }
+            }
         </tbody>
     </table>
     <table class="table table-bordered table-sm" style="overflow-y:auto;">
@@ -63,63 +77,20 @@
                 <th scope="col">Delete</th>
             </tr>
         </thead>
-        <tbody class="js-table-down">
+        <tbody>
+        @foreach (var res in Model.TopAdsList)
+        {
+            if (!res.TopBottom)
+            {
+                <tr>
+                    <td>@res.Id</td>
+                    <td>@res.Alt</td>
+                    <td>@res.Title</td>
+                    <td>@res.ImgUrl</td>
+                    <td>@Html.ActionLink("Delete", "DeleteAdd", "Admin", new { id = res.Id }, null)</td>
+                </tr>
+            }
+        }
         </tbody>
     </table>
 </div>
-
-@section scripts{
-    <script>
-        $(document).ready(function() {
-            $(".js-table-top .js-table-down").empty();
-            $.getJSON("/JsonFiles/Ads.json",
-                function(data) {
-                    $.each(data,
-                        function (key, value) {
-                            $('#js-id-adds').val(key+1);
-                            if (key == 0) {
-                                $('#js-id-adds').val(0);
-                            }
-                            if (value.TopBottom) {
-                                $(".js-table-top").append(
-                                    '<tr><td>' +
-                                    value.Id +
-                                    '</td><td>' +
-                                    value.Alt +
-                                    '</td><td>' +
-                                    value.Title +
-                                    '</td><td>' +
-                                    value.ImgUrl +
-                                    '</td><td><button class="btn btn-link delete" onclick="DeleteOffer()">Delete</button></td>');
-                            } else {
-                                $(".js-table-down").append(
-                                    '<tr><td>' +
-                                    value.Id +
-                                    '</td><td>' +
-                                    value.Alt +
-                                    '</td><td>' +
-                                    value.Title +
-                                    '</td><td>' +
-                                    value.ImgUrl +
-                                    '</td><td><button class="btn btn-link delete" onclick="DeleteOffer()">Delete</button></td>');
-                            }
-                        });
-                });
-        });
-
-        function DeleteOffer() {
-            console.log("vlaga vo delete");
-            $(document).ready(function() {
-                $(".delete").click(function() {
-                    var $row = $(this).closest("tr"); // Find the row
-                    var tds = $row.find("td");
-                    $.get('@Url.Action("DeleteAdd", "Admin")', { id: tds[0].innerText }).done(function() {
-                        alert( "Data Loaded");
-                    });
-                });
-            });
-        }
-    </script>
-}
-
-

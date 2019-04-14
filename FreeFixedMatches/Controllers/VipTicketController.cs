@@ -25,7 +25,7 @@ namespace FreeFixedMatches.Controllers
         public ViewResult Index()
         {
 
-            var vipTickets = _context.VipTickets.ToList();
+            var vipTickets = _context.VipTickets.OrderByDescending(v => v.Id).ToList();
 
             var viewResult = new ViewModelData
             {

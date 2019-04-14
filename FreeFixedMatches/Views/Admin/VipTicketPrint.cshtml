@@ -1,0 +1,149 @@
+﻿@using FreeFixedMatches.Models
+@using WebGrease.Css.Ast.MediaQuery
+@model FreeFixedMatches.ViewModel.VipTicketPrintView
+@{
+    Layout = null;
+
+    if (Session["Username"] == null)
+    {
+        Response.Redirect("~/Login/Index");
+    }
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tiketi</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        .bidiItiDelOdKlubot {
+            text-align: center;
+            font-size: 33px;
+            margin-top: 47px;
+        }
+
+        .KVP {
+            font-size: 23px;
+            margin-left: 55px;
+        }
+
+        .kontrolenBroj {
+            margin-top: 25px;
+        }
+
+        .vreme {
+            margin-top: 30px;
+        }
+
+        .rabotnik {
+            margin-top: -13px;
+        }
+
+        .sistemIgra {
+            border-bottom: 5px solid;
+            border-top: 5px solid;
+            margin-top: 11px;
+            padding-bottom: 6px;
+        }
+
+        .slikaDen {
+            width: 30px;
+            margin-bottom: 5px;
+            margin-right: 52px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" style="width:997px;">
+        @{
+            var j = 0;
+            for (var i = 0; i < Model.VipTicketPrint.Count; i += 4)
+            {
+
+                <div class="tiket" style="margin-bottom: 2000px;">
+                    <div class="row topWithLogoAndBarCode">
+                        <img src="/Assets/GenerateVipTicketImg/top.jpg">
+                    </div>
+                    <div class="row">
+                        <img src="/Assets/GenerateVipTicketImg/tekstGore.jpg">
+                    </div>
+                    <div class="row" style="    border-top: 5px solid;     border-bottom: 3px solid;">
+                        <div class="col-md-6">
+                            <p class="bidiItiDelOdKlubot">Биди и ти дел од клубот</p>
+                        </div>
+                        <div class="col-md-6" style="border-left: 4px solid;">
+                            <div class="KVP">
+                                <p class="kontrolenBroj">Контролен бр. <span id="controlNumberForChange">@Model.VipTicketPrint[i].ControlNumber</span></p>
+                                <p class="vreme">Време: <span id="timeChange" style="padding-left: 60px;">@Model.VipTicketPrint[i].TimeDate</span></p>
+                                <p class="rabotnik">Работник: <span id="nameChange" style="padding-left: 30px;">@Model.VipTicketPrint[i].Worker</span></p>
+                            </div>
+                        </div>
+                        <div class="row" style="color: white">test</div>
+                    </div>
+                    <div class="row sistemIgra">
+                        <img src="/Assets/GenerateVipTicketImg/sistemIgra.jpg">
+                    </div>
+                    <div class="row" style="    border-bottom: 5px solid;padding-bottom: 7px;">
+                        <table style="margin-left: 20px;" id="tableTicket">
+                            <tr style="font-size: 0px;">
+                                <th style="padding-right: 51px;"></th>
+                                <th style="padding-right: 132px;"></th>
+                                <th style="padding-right: 83px;"></th>
+                                <th style="padding-right: 175px;"></th>
+                                <th style="padding-right: 203px;"></th>
+                                <th style="padding-right: 99px;"></th>
+                                <th style="padding-right: 116px;"></th>
+                                <th></th>
+                            </tr>
+
+                            @foreach (var res in Model.VipTicketPrint)
+                            {
+                                if (res.FlagSite == j)
+                                {
+                                    <tr style="font-size: 19px">
+                                        <td><img src='/Assets/GenerateVipTicketImg/sab1.jpg' width='30px'></td>
+                                        <td>@res.Time</td>
+                                        <td>@res.Code</td>
+                                        <td>@res.HomeTeam</td>
+                                        <td>@res.AwayTeam</td>
+                                        <td>@res.Tip</td>
+                                        <td>@String.Format("{0:0.00}", res.Odd)</td>
+                                        <td>Fix</td>
+                                    </tr>
+                                }
+                            }
+
+                        </table>
+                    </div>
+                    <div class="row" style="margin-top:15px;border-bottom:5px solid;">
+                        <div class="col-md-6">
+                            <p style="font-size: 25px">Уплата:<span id="uplata">@Model.VipTicketPrint[i].PaymentIn</span>.00 Ден</p>
+                        </div>
+                        <div class="col-md-6" style="font-size: 25px;text-align: -webkit-right;">
+                            <p style="font-size:25px; margin-right: 35px;">
+                                Вк. Коефициент: <span id="koeficient">@Model.VipTicketPrint[i].TotalOdd</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row" style="border-top: 5px solid;margin-top: 20px;font-size:23px;padding-top:13px;">
+                        <div class="col-md-6">
+                            <p>Пот. Добивка:</p>
+                        </div>
+                        <div class="col-md-6" style="text-align: end;">
+                            <p style="margin-right: 34px;"><span id="dobivka">@String.Format("{0:0,0.00}", @Model.VipTicketPrint[i].PaymentOut) </span> ДЕН</p>
+                        </div>
+                    </div>
+                    <p style="text-align: center;font-size: 19px;">
+                        (Максималната добивка е можна само ако ги погодите сите типови на
+                        тикетот)
+                    </p>
+                </div>
+                j++;
+            }
+        }
+    </div>
+</body>
+</html>

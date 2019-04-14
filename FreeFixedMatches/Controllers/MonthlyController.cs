@@ -25,7 +25,7 @@ namespace FreeFixedMatches.Controllers
         public ViewResult Index()
         {
 
-            var monthlyTips = _context.MonthlySubscrations.ToList();
+            var monthlyTips = _context.MonthlySubscrations.OrderByDescending(m => m.Id).ToList();
 
 
             var monthlyTipsViewModel = new ViewModel.ViewModelData

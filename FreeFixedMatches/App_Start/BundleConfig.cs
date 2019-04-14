@@ -11,7 +11,7 @@ namespace FreeFixedMatches
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
             bundles.Add(new ScriptBundle("~/bundles/jqueryUI").Include(
-                "~/Scripts/jquery-ui-1.12.1.js"));
+                "~/Scripts/jquery-ui-1.12.1.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -22,12 +22,12 @@ namespace FreeFixedMatches
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js"));
+                      "~/Scripts/bootstrap.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap.min.css",
                       "~/Content/site.css",
-                      "~/Content/themes/base/jquery-ui.css",
+                      "~/Content/themes/base/jquery-ui.min.css",
                       "~/Content/font-awesome.min.css"
                       ));
         }

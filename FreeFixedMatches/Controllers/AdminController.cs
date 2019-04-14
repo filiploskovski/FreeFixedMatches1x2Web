@@ -14,6 +14,12 @@ namespace FreeFixedMatches.Controllers
 {
     public class AdminController : Controller
     {
+        private int RandomNumber(int min, int max)
+        {
+            var random = new Random();
+            return random.Next(min, max);
+        }
+
         private FreeFixedDb _context;
         public AdminController()
         {
@@ -150,13 +156,23 @@ namespace FreeFixedMatches.Controllers
         [HttpPost]
         public ActionResult AddVipToDb(VipTicket vipTicket)
         {
-            string extention = Path.GetExtension(vipTicket.ImageFile.FileName);
-            string fileName = "Tiket_" + DateTime.Now.ToString("d") + extention;
-            vipTicket.ImagePath = "/Assets/VipTickets/" + fileName;
-            fileName = Path.Combine(Server.MapPath("/Assets/VipTickets/"), fileName);
-            vipTicket.ImageFile.SaveAs(fileName);
-            _context.VipTickets.Add(vipTicket);
-            _context.SaveChanges();
+            try
+            {
+                var extenstion = Path.GetExtension(vipTicket.ImageFile.FileName);
+                var fileNameTemp = Path.GetFileNameWithoutExtension(vipTicket.ImageFile.FileName);
+                var fileName = fileNameTemp + RandomNumber(1,9999) + extenstion;
+                vipTicket.ImagePath = "/Assets/VipTickets/" + fileName;
+                fileName = Path.Combine(Server.MapPath("~/Assets/VipTickets/"), fileName);
+                vipTicket.ImageFile.SaveAs(fileName);
+                _context.VipTickets.Add(vipTicket);
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                vipTicket.Exception = e.Message;
+                return View("AddVipTicket", vipTicket);
+            }
+           
             return View("AddVipTicket");
         }
         public ViewResult DeleteVipTicket()
@@ -181,6 +197,14 @@ namespace FreeFixedMatches.Controllers
             };
 
             return View("DeleteVipTicket", vipTicketsList);
+        }
+        public ViewResult VipTicketPrint()
+        {
+            var vipTicketForPrint = new VipTicketPrintView
+            {
+                VipTicketPrint = _context.VipTicketPrint.ToList()
+            };
+            return View(vipTicketForPrint);
         }
 
 
@@ -249,44 +273,48 @@ namespace FreeFixedMatches.Controllers
 
         public ViewResult Ads()
         {
-            return View();
+            var ads = _context.Ads.ToList();
+            var newViewModel = new AdsView
+            {
+                TopAdsList = ads
+            };
+
+            return View(newViewModel);
         }
 
         public ActionResult AdsAdd(AdsView adsView)
         {
-            var fileContents = System.IO.File.ReadAllText(Server.MapPath(@"~/JsonFiles/Ads.json"));
-            var result = JsonConvert.DeserializeObject<List<Ads>>(fileContents);
-            result.Add(new Ads
+            var ads = _context.Ads.ToList();
+            ads.Add(new Ads
             {
                 Id = adsView.TopAds.Id,
                 Alt = adsView.TopAds.Alt,
                 Title = adsView.TopAds.Title,
                 ImgUrl = adsView.TopAds.ImgUrl,
-                TopBottom = adsView.TopAds.TopBottom
+                TopBottom = adsView.TopAds.TopBottom,
+                Url = adsView.TopAds.Url
             });
-            var resultForSave = JsonConvert.SerializeObject(result);
-            System.IO.File.WriteAllText(Server.MapPath(@"~/JsonFiles/Ads.json"), resultForSave);
-            return View("Ads");
+            _context.Ads.AddRange(ads);
+            _context.SaveChanges();
+            var newViewModel = new AdsView
+            {
+                TopAdsList = ads
+            };
+            return View("Ads", newViewModel);
         }
 
         public ActionResult DeleteAdd(string id)
         {
-            var idInt = Int32.Parse(id);
-            var fileContents = System.IO.File.ReadAllText(Server.MapPath(@"~/JsonFiles/Ads.json"));
-            var result = JsonConvert.DeserializeObject<List<Ads>>(fileContents);
-            var objectToDelete = result.SingleOrDefault(x => x.Id == idInt);
-            var count = 0;
-            if (objectToDelete != null)
-                result.Remove(objectToDelete);
-            foreach (var sortAdds in result)
+            var idInt = int.Parse(id);
+            var ads = _context.Ads.SingleOrDefault(x => x.Id == idInt);
+            _context.Ads.Remove(ads ?? throw new InvalidOperationException());
+            _context.SaveChanges();
+            var adsFull = _context.Ads.ToList();
+            var newViewModel = new AdsView
             {
-                sortAdds.Id = count;
-                count++;
-            }
-            var resultForSave = JsonConvert.SerializeObject(result);
-            System.IO.File.WriteAllText(Server.MapPath(@"~/JsonFiles/Ads.json"), resultForSave);
-
-            return View("Ads");
+                TopAdsList = adsFull
+            };
+            return View("Ads", newViewModel);
 
         }
         //----------------------------------------ADS END ---------------------------------------------------------------
@@ -398,8 +426,5 @@ namespace FreeFixedMatches.Controllers
             Session.Abandon();
             return RedirectToAction("Index", "Home");
         }
-
-
-       
     }
 }

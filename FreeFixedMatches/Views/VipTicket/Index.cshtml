@@ -1,9 +1,9 @@
 ﻿@model FreeFixedMatches.ViewModel.ViewModelData
 
 @{
-    ViewBag.Title = "Fixed matches , Offer for vip ticket with best fixed matches";
-    ViewBag.Description = "Free fixed matches, Vip ticket offer with four sure fixed matches and big profit";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "Fixed matches , Offer for vip ticket with best fixed matches";
+	ViewBag.Description = "Free fixed matches, Vip ticket offer with four sure fixed matches and big profit";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
@@ -48,7 +48,7 @@
 			<div class="card-body">
 				<div class="row">
 					<div class="col-md-2 d-none d-sm-block">
-						<img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
+						<img src="/Content/imgWebsite/defFace.jpg" class="img img-rounded img-fluid" alt="customer comment about fixed matches" title="customer comment"/>
 					</div>
 					<div class="col-md-10">
 						<p>
@@ -75,7 +75,7 @@
 			<div class="card-body">
 				<div class="row">
 					<div class="col-md-2 d-none d-sm-block">
-						<img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
+						<img src="/Content/imgWebsite/defFace.jpg" class="img img-rounded img-fluid" alt="customer comment about fixed matches" title="customer comment"/>
 					</div>
 					<div class="col-md-10">
 						<p>
@@ -103,7 +103,7 @@
 			<div class="card-body">
 				<div class="row">
 					<div class="col-md-2 d-none d-sm-block">
-						<img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
+						<img src="/Content/imgWebsite/defFace.jpg" class="img img-rounded img-fluid" alt="customer comment about fixed matches" title="customer comment"/>
 					</div>
 					<div class="col-md-10">
 						<p>
@@ -143,10 +143,9 @@
 			<div class="card h-100 text-center">
 				<img class="card-img-top" src="@vip.ImagePath" alt="@vip.Title" title="@vip.Alt">
 				<div class="card-body">
-					<h2 class="card-title">
-						<span class="fa fa-external-link mr-1"></span>
+					<p class="card-title vipTicketCardTextDecoration">
 						@vip.Date
-					</h2>
+					</p>
 				</div>
 			</div>
 		</div>

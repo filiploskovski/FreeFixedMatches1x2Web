@@ -169,6 +169,30 @@
     <Compile Include="Migrations\201903042120166_AddTitleTagInVipTicket.Designer.cs">
       <DependentUpon>201903042120166_AddTitleTagInVipTicket.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904061706373_AddAdsModel.cs" />
+    <Compile Include="Migrations\201904061706373_AddAdsModel.Designer.cs">
+      <DependentUpon>201904061706373_AddAdsModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904061747060_AddTomFreeTips.cs" />
+    <Compile Include="Migrations\201904061747060_AddTomFreeTips.Designer.cs">
+      <DependentUpon>201904061747060_AddTomFreeTips.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904061836355_VipTicketPrintA.cs" />
+    <Compile Include="Migrations\201904061836355_VipTicketPrintA.Designer.cs">
+      <DependentUpon>201904061836355_VipTicketPrintA.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904071612337_VipUpdate.cs" />
+    <Compile Include="Migrations\201904071612337_VipUpdate.Designer.cs">
+      <DependentUpon>201904071612337_VipUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904082214064_VipTicketPrintControlNumber.cs" />
+    <Compile Include="Migrations\201904082214064_VipTicketPrintControlNumber.Designer.cs">
+      <DependentUpon>201904082214064_VipTicketPrintControlNumber.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904121301355_AdsAddUrlToPage.cs" />
+    <Compile Include="Migrations\201904121301355_AdsAddUrlToPage.Designer.cs">
+      <DependentUpon>201904121301355_AdsAddUrlToPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\FreeFixedDb.cs" />
     <Compile Include="Models\FreeTip.cs" />
@@ -177,10 +201,12 @@
     <Compile Include="Models\MonthlySubscration.cs" />
     <Compile Include="Models\Ads.cs" />
     <Compile Include="Models\NewFreeTips.cs" />
+    <Compile Include="Models\TomorrowFreeTips.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\VipTicket.cs" />
     <Compile Include="Models\VipTicketDate.cs" />
     <Compile Include="Models\VipTicketOffer.cs" />
+    <Compile Include="Models\VipTicketPrint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\AdsView.cs" />
     <Compile Include="ViewModel\FreeTipViewModel.cs" />
@@ -188,8 +214,15 @@
     <Compile Include="ViewModel\NewFreeTipsView.cs" />
     <Compile Include="ViewModel\ViewModelData.cs" />
     <Compile Include="ViewModel\VipAdminViewModel.cs" />
+    <Compile Include="ViewModel\VipTicketPrintView.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\GenerateVipTicketImg\barCode.png" />
+    <Content Include="Assets\GenerateVipTicketImg\logo.png" />
+    <Content Include="Assets\GenerateVipTicketImg\sab1.jpg" />
+    <Content Include="Assets\GenerateVipTicketImg\sistemIgra.jpg" />
+    <Content Include="Assets\GenerateVipTicketImg\tekstGore.jpg" />
+    <Content Include="Assets\GenerateVipTicketImg\top.jpg" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -243,7 +276,8 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\AssetsScripts\MonthlySubscrationClient.js" />
+    <Content Include="Scripts\AssetsScripts\JsonDataLoader.js" />
+    <Content Include="Scripts\AssetsScripts\LazyLoading.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -277,7 +311,8 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
-    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\Direkno na Server.pubxml" />
+    <None Include="Properties\PublishProfiles\Lokalno.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -299,7 +334,9 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -338,6 +375,7 @@
     <Content Include="Views\Admin\vipTicketOffer.cshtml" />
     <Content Include="Views\Admin\VipTicketDate.cshtml" />
     <Content Include="Views\Admin\FreeTipsDate.cshtml" />
+    <Content Include="Views\Admin\VipTicketPrint.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -383,6 +421,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903042120166_AddTitleTagInVipTicket.resx">
       <DependentUpon>201903042120166_AddTitleTagInVipTicket.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904061706373_AddAdsModel.resx">
+      <DependentUpon>201904061706373_AddAdsModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904061747060_AddTomFreeTips.resx">
+      <DependentUpon>201904061747060_AddTomFreeTips.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904061836355_VipTicketPrintA.resx">
+      <DependentUpon>201904061836355_VipTicketPrintA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904071612337_VipUpdate.resx">
+      <DependentUpon>201904071612337_VipUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904082214064_VipTicketPrintControlNumber.resx">
+      <DependentUpon>201904082214064_VipTicketPrintControlNumber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904121301355_AdsAddUrlToPage.resx">
+      <DependentUpon>201904121301355_AdsAddUrlToPage.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -39,12 +39,12 @@
     </div>
     <div class="col-md-12 text-center ">
         <p><b class="css-email-key">Check out more on:</b></p>
-        <p><b class="css-email-name">fixedmatchesreal@gmail.com</b></p>
+        <p><b class="css-email-name">fixedmatchesfree1x2@gmail.com</b></p>
     </div>
-    <div class="col-md-6 mb-5 js-monthly-offers">
+    <div class="col-md-4 mb-5 js-monthly-offers">
 
     </div>
-    <div class="col-md-6 mb-5">
+    <div class="col-md-8 mb-5">
         <div class="table-responsive">
             <table class="table table-bordered table-sm" style="overflow-y:auto;">
                 <thead>
@@ -63,12 +63,12 @@
                     {
                         <tr>
                             <td>@tip.Date</td>
-                            <td>@tip.TotalOdd</td>
+                            <td>@String.Format("{0:0.00}", tip.TotalOdd)</td>
                             <td>@tip.Match</td>
                             <td>@tip.Tip</td>
-                            <td>@tip.Odd</td>
+                            <td>@String.Format("{0:0.00}", tip.Odd)</td>
                             <td>@tip.Result</td>
-                            <td>@tip.WinLose</td>
+                            <td class="js-winLose">@tip.WinLose</td>
                         </tr>
                     }
                 </tbody>
@@ -82,8 +82,16 @@
     </div>
 </div>
 <!-- ADS -->
-<div class="row js-ads-top">
-
+<div class="row">
+    @foreach (var ad in Model.Ads)
+    {
+        if (ad.TopBottom)
+        {
+            <div class="col-6 col-md-2">
+                <img data-src="@ad.ImgUrl"class="img-fluid mb-2 lazy" alt="@ad.Alt" title="@ad.Title" />
+            </div>
+        }
+    }
 </div>
 <!-- ADS END -->
 <div class="card text-white bg-secondary my-3 text-center">
@@ -103,12 +111,13 @@
         </p>
     </div>
     <div class="col-md-12">
-        <div class="alert alert-danger text-center js-vip-date" role="alert">
+        <div class="alert alert-danger text-center" role="alert">
+            <h3>NEXT VIP TICKET WITH 4 FIXED MATCHES IS FOR<span><br /><strong>@Model.DateNewVipTicket</strong></span></h3>
         </div>
     </div>
     <div class="col-md-12 text-center ">
         <p><b class="css-email-key">Check out more on:</b></p>
-        <p><b class="css-email-name">fixedmatchesreal@gmail.com</b></p>
+        <p><b class="css-email-name">fixedmatchesfree1x2@gmail.com</b></p>
     </div>
 
     <div class="col-md-6 mb-5">
@@ -118,9 +127,9 @@
         @foreach (var ticket in Model.VipTickets)
         {
             <div class="card">
-                <img class="card-img-top" src="@ticket.ImagePath" alt="@ticket.Title">
+                <img class="card-img-top lazy" data-src="@ticket.ImagePath" alt="@ticket.Title">
                 <div class="card-body">
-                    <p class="card-text">@ticket.ImagePath</p>
+                    <p class="card-text vipTicketCardTextDecoration">@ticket.Date</p>
                 </div>
             </div>
         }
@@ -139,22 +148,30 @@
 <!-- Payment -->
 <div class="row">
     <div class="col-6 col-md-3">
-        <img src="~/Content/PaymentMethods/wUnion.png" class="img-fluid mb-2" />
+        <img data-src="/Content/PaymentMethods/wUnion.png" class="img-fluid mb-2 lazy" alt="western union" title="payment with western union"/>
     </div>
     <div class="col-6 col-md-3">
-        <img src="~/Content/PaymentMethods/SkrillNettelerLogo.jpg" class="img-fluid mb-2" />
+        <img data-src="/Content/PaymentMethods/SkrillNettelerLogo.jpg" class="img-fluid mb-2 lazy" alt="Skrill neteller" title="payment with skrill or neteller"/>
     </div>
     <div class="col-6 col-md-3">
-        <img src="~/Content/PaymentMethods/riaLogo.jpg" class="img-fluid mb-2" />
+        <img data-src="/Content/PaymentMethods/riaLogo.jpg" class="img-fluid mb-2 lazy" alt="ria" title="payment with ria"/>
     </div>
     <div class="col-6 col-md-3">
-        <img src="~/Content/PaymentMethods/Bitcoin.png" class="img-fluid mb-2" />
+        <img data-src="/Content/PaymentMethods/Bitcoin.png" class="img-fluid mb-2 lazy" alt="bitcoin" title="payment with bitcoin"/>
     </div>
 </div>
 
 <!-- ADS -->
-<div class="row js-ads-bottom">
-    
+<div class="row">
+    @foreach (var ad in Model.Ads)
+    {
+        if (!ad.TopBottom)
+        {
+            <div class="col-6 col-md-2">
+                <img data-src="@ad.ImgUrl"class="img-fluid mb-2 lazy" alt="@ad.Alt" title="@ad.Title" />
+            </div>
+        }
+    }
 </div>
 <div class="card text-white bg-secondary my-3 text-center">
     <div class="card-body">
@@ -164,15 +181,17 @@
 
 
 <div class="row">
-    <div class="col-md-6 mb-5">
-        <div class="js-freeTips-date">
-
-        </div>
+    <div class="col-md-5 mb-5">
+        <h4>Free Tips: @Model.TodayDate</h4>
         <hr/>
-        <ul class="list-group js-freeTips">
+        <ul class="list-group">
+            @foreach (var res in Model.TomorrowFreeTips)
+            {
+            <li class="list-group-item cssNewFreeTips">@res.Time  @res.Match  @res.Tip  @String.Format("{0:0.00}", res.Odd)</li>
+            }
         </ul>
     </div>
-    <div class="col-md-6 mb-5">
+    <div class="col-md-7 mb-5">
         <div class="table-responsive">
             <table class="table table-bordered table-sm" style="overflow-y: auto;">
                 <thead>
@@ -189,11 +208,11 @@
 
                 @foreach (var freeTip in Model.FreeTips)
                 {
-                    <tr>
+                    <tr class="js-table-row">
                         <td>@freeTip.Date</td>
                         <td>@freeTip.Match</td>
                         <td>@freeTip.Tip</td>
-                        <td>@freeTip.Odd</td>
+                        <td>@String.Format("{0:0.00}", freeTip.Odd)</td>
                         <td>@freeTip.Result</td>
                         <td>@freeTip.WinLose</td>
                     </tr>
@@ -215,7 +234,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-2 d-none d-sm-block">
-                        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
+                        <img data-src="/Content/imgWebsite/defFace.jpg" class="img img-rounded img-fluid lazy" alt="customer comment about our fixed matches offers" title="customer comment"/>
                     </div>
                     <div class="col-md-10">
                         <p>
@@ -242,7 +261,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-2 d-none d-sm-block">
-                        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
+                        <img data-src="/Content/imgWebsite/defFace.jpg" class="img img-rounded img-fluid lazy" alt="customer comment about our fixed matches offers" title="customer comment"/>
                     </div>
                     <div class="col-md-10">
                         <p>
@@ -268,7 +287,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-2 d-none d-sm-block">
-                        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
+                        <img data-src="/Content/imgWebsite/defFace.jpg" class="img img-rounded img-fluid lazy" alt="customer comment about our fixed matches offers" title="customer comment"/>
                     </div>
                     <div class="col-md-10">
                         <p>
@@ -294,7 +313,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-2 d-none d-sm-block">
-                        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
+                        <img data-src="/Content/imgWebsite/defFace.jpg" class="img img-rounded img-fluid lazy" alt="customer comment about our fixed matches offers" title="customer comment" />
                     </div>
                     <div class="col-md-10">
                         <p>
@@ -321,7 +340,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-2 d-none d-sm-block">
-                        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
+                        <img data-src="/Content/imgWebsite/defFace.jpg" class="img img-rounded img-fluid lazy" alt="customer comment about our fixed matches offers" title="customer comment"/> 
                     </div>
                     <div class="col-md-10">
                         <p>
@@ -347,7 +366,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-2 d-none d-sm-block">
-                        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
+                        <img data-src="/Content/imgWebsite/defFace.jpg" class="img img-rounded img-fluid lazy" alt="customer comment about our fixed matches offers" title="customer comment" />
                     </div>
                     <div class="col-md-10">
                         <p>
@@ -373,70 +392,6 @@
 
 
 @section scripts {
-    <script>
-        $(document).ready(function() {
-            $.getJSON("/JsonFiles/Ads.json",
-                function(data) {
-                    $.each(data,
-                        function (key, value) {
-                            if (value.TopBottom) {
-                                $(".js-ads-top").append(
-                                    '<div class="col-6 col-md-2">' +
-                                    '<img src="' + value.ImgUrl +'"class="img-fluid mb-2" alt="'+ value.Alt +'" /></div>');
-                            } else {
-                                $(".js-ads-bottom").append(
-                                    '<div class="col-6 col-md-2">' +
-                                    '<img src="' + value.ImgUrl +'"class="img-fluid mb-2" alt="'+ value.Alt +'" /></div>');
-                            }
-                        });
-                });
-            $.getJSON("/JsonFiles/MonthlyOffers.json",
-                function(data) {
-                    $.each(data,
-                        function (key, value) {
-                            $(".js-monthly-offers").append(
-                                '<div class="col-md-12 mb-2">' +
-                                '<div class="card h-100">' +
-                                '<div class="card-body">' +
-                                '<h2 class="card-title">' + value.NameOffer +'</h2>' +
-                                '<p class="card-text">' + value.TextOffer +'</p>' +
-                                '<h5 class="card-text">Price: ' + value.PriceOffer + ' euros</h5></div></div></div>');
-                        });
-                });
-            $.getJSON("/JsonFiles/vipTicketOffers.json",
-                function(data) {
-                    $.each(data,
-                        function (key, value) {
-                            $(".js-vip-offers").append(
-                                '<div class="col-md-12 mb-2">' +
-                                '<div class="card h-100">' +
-                                '<div class="card-body">' +
-                                '<h2 class="card-title">' + value.NameOffer +'</h2>' +
-                                '<p class="card-text">' + value.TextOffer +'</p>' +
-                                '<h5 class="card-text">Price: ' + value.PriceOffer + ' euros</h5></div></div></div>');
-                        });
-                });
-            $.getJSON("/JsonFiles/FreeTipDateChange.json",
-                function (data) {
-                    $(".js-freeTips-date").append(
-                        '<h4>Free Tips for today: ' + data.FreeTipsDate + '</h4>');
-                });
-
-            $.getJSON("/JsonFiles/FreeTips.json",
-                function(data) {
-                    $.each(data,
-                        function (key, value) {
-                            $(".js-freeTips").append(
-                                '<li class="list-group-item">' + value + '</li>');
-                        });
-                });
-            $.getJSON("/JsonFiles/VipTicketDate.json",
-                function (data) {
-                            $(".js-vip-date").append(
-                                '<h3>NEXT VIP TICKET WITH 4 FIXED MATCHES IS FOR -><span><strong>' + data.VipDateForChange +'</strong></span></h3>');
-                });
-            
-        });
-    </script>
+    <script src="~/Scripts/AssetsScripts/JsonDataLoader.js"></script>
+    <script src="~/Scripts/AssetsScripts/LazyLoading.js"></script>
 }
-

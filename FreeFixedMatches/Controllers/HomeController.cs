@@ -23,17 +23,38 @@ namespace FreeFixedMatches.Controllers
                 _context.Dispose();
             }
 
-            public ActionResult Index()
+            private string GetDate()
             {
-                var monthly = _context.MonthlySubscrations.OrderByDescending(m => m.Id).Take(16).ToList();
+                return DateTime.Today.Date.ToString("D");
+            }
+
+            private string ChangeDateTicket(string date)
+            {
+                if (DateTime.Today.DayOfWeek == DayOfWeek.Saturday)
+                {
+                    return date = GetDate();
+                }
+                return date;
+            }
+
+        public ActionResult Index()
+            {
+                var dateTicket = "06/04/2019";
+                var monthly = _context.MonthlySubscrations.OrderByDescending(m => m.Id).Take(18).ToList();
                 var vipTickets = _context.VipTickets.OrderByDescending(v => v.Id).Take(1).ToList();
-                var freeTips = _context.FreeTips.OrderByDescending(f => f.Id).Take(16).ToList();
+                var freeTips = _context.FreeTips.OrderByDescending(f => f.Id).Take(20).ToList();
+                var ads = _context.Ads.ToList();
+                var tomFreeTips = _context.TomorrowFreeTips.ToList();
 
                 var viewResult = new ViewModelData
                 {
                     FreeTips = freeTips,
                     VipTickets = vipTickets,
-                    MonthlySubscrations = monthly
+                    MonthlySubscrations = monthly,
+                    Ads = ads,
+                    TomorrowFreeTips = tomFreeTips,
+                    TodayDate = GetDate(),
+                    DateNewVipTicket = ChangeDateTicket(dateTicket)
                 };
 
                 return View(viewResult);
