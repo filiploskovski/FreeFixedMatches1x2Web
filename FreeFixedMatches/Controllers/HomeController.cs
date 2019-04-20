@@ -28,18 +28,17 @@ namespace FreeFixedMatches.Controllers
                 return DateTime.Today.Date.ToString("D");
             }
 
-            private string ChangeDateTicket(string date)
+            private string ChangeDateTicket()
             {
-                if (DateTime.Today.DayOfWeek == DayOfWeek.Saturday)
-                {
-                    return date = GetDate();
-                }
-                return date;
+                DateTime today = DateTime.Today;
+                // The (... + 7) % 7 ensures we end up with a value in the range [0, 6]
+                int daysUntilSaturday = ((int)DayOfWeek.Saturday - (int)today.DayOfWeek + 7) % 7;
+                DateTime nextSaturday = today.AddDays(daysUntilSaturday);
+                return nextSaturday.ToString("dddd, dd MMMM yyyy");
             }
 
         public ActionResult Index()
-            {
-                var dateTicket = "06/04/2019";
+        {
                 var monthly = _context.MonthlySubscrations.OrderByDescending(m => m.Id).Take(18).ToList();
                 var vipTickets = _context.VipTickets.OrderByDescending(v => v.Id).Take(1).ToList();
                 var freeTips = _context.FreeTips.OrderByDescending(f => f.Id).Take(20).ToList();
@@ -54,7 +53,7 @@ namespace FreeFixedMatches.Controllers
                     Ads = ads,
                     TomorrowFreeTips = tomFreeTips,
                     TodayDate = GetDate(),
-                    DateNewVipTicket = ChangeDateTicket(dateTicket)
+                    DateNewVipTicket = ChangeDateTicket()
                 };
 
                 return View(viewResult);

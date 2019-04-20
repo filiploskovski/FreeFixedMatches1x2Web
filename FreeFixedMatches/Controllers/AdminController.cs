@@ -48,7 +48,7 @@ namespace FreeFixedMatches.Controllers
         }
         public ViewResult AddFreeTip()
         {
-            var freeTips = _context.FreeTips.OrderByDescending(d => d.Date).ToList();
+            var freeTips = _context.FreeTips.OrderByDescending(d => d.Id).ToList();
             var newViewModelFreeTips = new FreeTipViewModel
             {
                 freeTips = freeTips
@@ -79,7 +79,7 @@ namespace FreeFixedMatches.Controllers
             var freeTip = _context.FreeTips.FirstOrDefault(x => x.Id == id);
             _context.FreeTips.Remove(freeTip);
             _context.SaveChanges();
-            var freeTips = _context.FreeTips.OrderByDescending(d => d.Date).ToList();
+            var freeTips = _context.FreeTips.OrderByDescending(d => d.Id).ToList();
             var newViewModelFreeTips = new FreeTipViewModel
             {
                 freeTips = freeTips
@@ -88,7 +88,7 @@ namespace FreeFixedMatches.Controllers
         }
         public ActionResult AddMonthly()
         {
-            var monthlyTable = _context.MonthlySubscrations.OrderByDescending(d => d.Date).ToList();
+            var monthlyTable = _context.MonthlySubscrations.OrderByDescending(d => d.Id).ToList();
             var newViewModel = new MonthlyAdminViewModel
             {
                 monthlySubscrations = monthlyTable
@@ -142,7 +142,7 @@ namespace FreeFixedMatches.Controllers
             var monthlyTip = _context.MonthlySubscrations.FirstOrDefault(x => x.Id == id);
             _context.MonthlySubscrations.Remove(monthlyTip);
             _context.SaveChanges();
-            var monthlyViewModel = _context.MonthlySubscrations.OrderByDescending(d => d.Date).ToList();
+            var monthlyViewModel = _context.MonthlySubscrations.OrderByDescending(d => d.Id).ToList();
             var newViewModelMonthly = new MonthlyAdminViewModel
             {
                 monthlySubscrations = monthlyViewModel

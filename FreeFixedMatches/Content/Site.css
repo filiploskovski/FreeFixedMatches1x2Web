@@ -56,3 +56,9 @@
 .cssNewFreeTips {
     font-weight: 700;
 }
+
+@media (max-width: 575.98px) {
+    .css-email-key, .css-email-name {
+        font-size: 115%;
+    }
+}
